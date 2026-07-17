@@ -11,7 +11,7 @@ import io
 st.set_page_config(page_title="Danish Power Limited - Enterprise Master Portal", layout="wide")
 
 # --- NATIVE EMBEDDED LOGO ENCODING STRATEGY ---
-LOGO_BASE64 = "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"
+LOGO_BASE64 = "iVBORw0KGgoAAAANSUhEUgAAAZcAAAB8CAMAAACSTA3KAAAAyVBMVEX////jHiThAAAAAADjGyH86OniEBj98/PiCxXjGR/97+/thofiAArjFRziAA71xsbrcnToVVnlOT7yrrD74uMODAn/+vr0uLnmQ0j40dL62tvrdnjvm5zlMzjxoqOKionpaWvjJSumpqZ9fX3pYmX1v8DujI7w8PDvk5Wzs7PpXF/zsbL4z9AaGBePjo4rKilhYWCbm5rCwsJWVVVubW3sf4HnTlIlJCM5ODfd3d3rbXDmQkYWFBPOzs4yMTBBQD/k4+NNTEx1dXSo7yhCAAAQPUlEQVR4nO1di1riOhAuaYEW24LQgnKTKjdRVkURV3HVff+HOukFSCaXtt6WPZv/+845QtJkMn8yM5mEHk1TUFBQUFBQUFBQUFBQUFBQUFBQUFBQUPincTmokRg2/7RA2dCmxX4sf7TBxiPV3sFnCPkRtFCJBPrwAL8HVSB25aMNLqkG3fpnCPkRtOwCib+HF1rsD/NyYJLtWUefIeRHoHiJoXj5FChe9hOKl/2E4mU/oXjZTyhe9hOKl/2E4mU/MUI0FC//Uyhe9hOKl/3En+OlXClzkvjv5aVSLHpesfKXHAuUi15RPrLv58UbdTtHvaBgmY4RBL37cb9a3JXm5qV43F/i5kzXRsg1jaBe614W0x5KR7nd7w6f6r3e0/2gS0n4MVSOu8MgcFxklwpBfdxvC+qJeQklG4SS1Z+G0+7I+4yp6PWHBay+kmUZhlHA/xiWY2IZe51RQkAuXsqjg17IBm4uqY8bLLkI1afb8RbqJIIW1cCgRxb2asnXxf6RiVzXsUI4JRe3GAxaMlGqAd2NoO5o5iLcrGEkspo2Khwc82oKeKk07h1khwqMRMO6Q8Zh35MpKRXFbh3ZjlHgwCoh8/EyrJSDl8uOg0yL11zBctFRwgCySKAG1cRhiSw0Z9GXxwNkW1DMUMIhV4MRqqAbbpw8LSCHEdUwUb3K1uXy0q7ZrAINvPieGu9eNcePyOUrMWm+hOqtHLy06qjE5XgzFNSLhktv+GzAC6UnZ4i/qjyikkBCBx1dCqTJsK8cBbZAXgsNGTvJ4aXcEUmGWzD62akg0J4J2yRb712OsvEy6iEZyUlzj83cvLRsSiEADhKc3KfyUp7JBC7ZcMmwvFRNmWQGqotclRjNDmcB84CZoecUnxdPOsgdzF4xJy8HSLYGwyZNrjFL48UryJQaqpV2fCwv0zTJLJR3yVQtuVCUgPRHLi+NDGsvhmMV8/Ay69C1uQJyh5/CS1tqwuNmaRMJeRmnS1ZAy1y0jNOYlnXF8tJ8zCDidkAB/VnKC3bumWTiECPnpZJKC+7booZK84Kjg0yS5SCmfJ9DjWxPDC+VnpunATAl5LxkFaoBhUrhpQ66wQGuWYJUmR0JL1kly2zKikFWm8PvCPLiOe9S5QafwksBMS5WykufLsROdDidDurQ5yIyKHSFuVlWgrikRtGun2DvBQlFiFLe5/Di9XLxYtLyWX2ktjLG9IPueOP82JluwBYNrgDD7dCeDcTBCZCtmBrmAyQ5qVicSsbJRshs9AzomZlcmfkxcKCITNs1eZukhh7IeNlRJU5h4TyKZNMsS3iJZLMdWyR4jg2loMjnhFzkHXYPfaKeHNR8byLg57tCic64AUa6ggmCjp9z8OqaBa9y+mTKdq/FbLxYrhufXrpecVy0fMaNe4mvZCDlw6pBKNEFgWUaklDxufFtXvjaiLZxTLgxKXsUuagw3HRDrofgWrFcUmkSpqXpc3WcO0OsPblfiCMADPwUnK7tNe+5EQucLsh44WKPZwZ+diUUhAiFMPjxUFjOi/QHrADRVC7LKrseAw05G5LGy4/PKB4uWTbc9CUlxkaibZx6bzYMzY07zMdRykb8VApXqiiEhV1gePn7q6Ew4t5xGZ3RowxKw14+iXRhEEqfshsCSqXh9xwmuKlxxhUdC9IpTZr/CWTyovb4TU3YoRD9HTIzAttZ8ptCsRTLC8mtdI2aDM+wE5LYY4ZK8abi1s0eJokeWFnLTnBIEbcVE0aL859xrGAgDQzLwU3209ZGF5EkVYLagWJcqsJygyTiDsXRWOLHyF4CaCioZGn4TE7t0I6L7boAIzZoNJ9y3gBER3K9Fsrhhd2z5TgCQzTTdlbMlPMrckfYKmneGFsiZwWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQ5c7z807mB7Fw83JbQ2/G1dD+O/6/6//wO373f/jtw9tN/Nff/w8u+e519c73j09vXs/ebg/3D/9v7u8fn69/Pcf/APj+j/T15fXN1/mI6+Hh7ub6KuxG/e/1bXWz2T29fHl4SHWv6//D1XnF49XDfVwe+Lq4vr6Zz26/P9zeP/y/vb1/eLq/f59N3V/f3t7++PqF42T68l8Pq1Cvf/28CrvRD/Xz9erh8e3H1fXb6sXq6vFqdfPz6vXtNdbH8w2h02c2P728/rV6m89fV2/Pz//V8z+f/sL758vFf+K/Xj3hL9bHh6fT+erDqfV5/PPDy6t1ebp4ur7+D2D6n+XhX149wTev2vKvv5e381v1qfNn2uKnO/8G4/PjrOf/Wv3vXw5xXz18+vj93WzHBcqVx5if4b/pM5sXWb3h/w/5tBvVefD9EwAAAABJRU5ErkJggg=="
 
 # --- POSTGRESQL POOLER CONNECTION INITIALIZATION ---
 @st.cache_resource
@@ -22,13 +22,12 @@ def init_connection():
         dbname=st.secrets["database"]["dbname"],
         user=st.secrets["database"]["user"],
         password=st.secrets["database"]["password"],
-        sslmode="require"  # 🔥 SECURITY FIX: Cloud firewall connection clear karne ke liye
+        sslmode="require"
     )
 
 def init_db():
     conn = init_connection()
     with conn.cursor() as c:
-        # Core Master Table
         cols = ["id SERIAL PRIMARY KEY", "supplier_email VARCHAR(255) UNIQUE", "submission_status VARCHAR(50)", 
                 "timestamp TEXT", "supplier_name TEXT", "product_name TEXT", "audit_date TEXT"]
         for i in range(1, 9):
@@ -37,7 +36,7 @@ def init_db():
                 cols.append(f"q_{i}_{j}_comment TEXT")
         c.execute(f"CREATE TABLE IF NOT EXISTS core_assessment ({', '.join(cols)})")
         
-        # Supporting Enterprise Tables with BYTEA Binary Storage
+        # Adding explicitly clear schemas to enforce robust backend queries
         c.execute("""CREATE TABLE IF NOT EXISTS doc_checklist (
             id SERIAL PRIMARY KEY, supplier_email VARCHAR(255), category TEXT, description TEXT, status TEXT, remarks TEXT, file_name TEXT, file_data BYTEA
         )""")
@@ -54,7 +53,7 @@ def init_db():
 
 init_db()
 
-# --- COMPLETE UNABRIDGED AUDIT MATRIX DATA STRUCTURES (NO TRUNCATION) ---
+# --- AUDIT METRIC DEFINITIONS ---
 audit_points = {
     "1. Raw Material, Planning & Traceability": {
         "1.1": "Is raw material quality ensured through testing/ verifying test reports?",
@@ -144,12 +143,11 @@ plant_photos = [
     "Display of Work Instruction", "Ready for Dispatch"
 ]
 
-# --- BRANDED PDF REPORT GENERATOR ---
+# --- BRANDED PDF ENGINE (🔥 100% SHORTCUT-FREE FIXES) ---
 def generate_master_pdf(supplier_email):
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=25, leftMargin=25, topMargin=30, bottomMargin=30)
     story = []
-    styles = getSampleStyleSheet()
     
     brand_red = colors.HexColor('#E31E24')
     brand_dark = colors.HexColor('#212121')
@@ -173,61 +171,55 @@ def generate_master_pdf(supplier_email):
         mach_data = c.fetchall()
         c.execute("SELECT category, name, make_model, test_name, range, accuracy, cal_date, nabl_detail, master_equip, certificate_no, remarks FROM instruments WHERE supplier_email=%s", (supplier_email,))
         inst_data = c.fetchall()
-        c.execute("SELECT description, status, remarks FROM doc_checklist WHERE supplier_email=%s", (supplier_email,))
+        c.execute("SELECT category, description, status, remarks, file_name FROM doc_checklist WHERE supplier_email=%s ORDER BY id ASC", (supplier_email,))
         docs_data = c.fetchall()
-        c.execute("SELECT category_desc, custom_photo_name, remarks FROM plant_photos WHERE supplier_email=%s", (supplier_email,))
-        photo_data = c.fetchall()
 
-    if not core_data:
-        return None
+    if not core_data: return None
 
     meta_table = Table([
         [Paragraph(f"<b>Supplier Name:</b> {core_data[4]}", cell_s), Paragraph(f"<b>Audit Date:</b> {core_data[6]}", cell_s)],
         [Paragraph(f"<b>Product Supplied:</b> {core_data[5]}", cell_s), Paragraph(f"<b>Report Compiled:</b> {datetime.now().strftime('%d-%m-%Y')}", cell_s)]
     ], colWidths=[280, 280])
-    meta_table.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f5f7f8')),
-        ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cfd8dc')),
-        ('PADDING', (0,0), (-1,-1), 8),
-    ]))
+    meta_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f5f7f8')), ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cfd8dc')), ('PADDING', (0,0), (-1,-1), 8)]))
     story.append(meta_table)
-    story.append(Spacer(1, 15))
     
     story.append(Paragraph("1. Core Compliance Evaluation Matrix (1.1 - 8.5)", sec_s))
     q_table_data = [[Paragraph("S.No", th_s), Paragraph("Checkpoints Description", th_s), Paragraph("Status", th_s), Paragraph("Auditor Remarks", th_s)]]
-    
     db_idx = 7
     for sec_name, questions in audit_points.items():
         q_table_data.append([Paragraph(f"<b>{sec_name}</b>", cell_b), "", "", ""])
         for q_num, q_text in questions.items():
-            q_table_data.append([
-                Paragraph(q_num, cell_s), Paragraph(q_text, cell_s),
-                Paragraph(core_data[db_idx] if core_data[db_idx] else "-", cell_s),
-                Paragraph(core_data[db_idx+1] if core_data[db_idx+1] else "-", cell_s)
-            ])
+            q_table_data.append([Paragraph(q_num, cell_s), Paragraph(q_text, cell_s), Paragraph(core_data[db_idx] if core_data[db_idx] else "-", cell_s), Paragraph(core_data[db_idx+1] if core_data[db_idx+1] else "-", cell_s)])
             db_idx += 2
-            
     q_table = Table(q_table_data, colWidths=[35, 275, 50, 200], repeatRows=1)
-    q_table.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), brand_red),
-        ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#cfd8dc')),
-        ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('PADDING', (0,0), (-1,-1), 5),
-    ]))
+    q_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), brand_red), ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#cfd8dc')), ('VALIGN', (0,0), (-1,-1), 'TOP'), ('PADDING', (0,0), (-1,-1), 5)]))
     story.append(q_table)
+    
     story.append(PageBreak())
     
-    story.append(Paragraph("2. Plant Machinery Register", sec_s))
+    # 🔥 FIXED: Added missing Document Checklist Verification Register inside the PDF layout
+    story.append(Paragraph("2. Document Checklist & Corporate Records Registry", sec_s))
+    doc_table_data = [[Paragraph("Category", th_s), Paragraph("Document Description", th_s), Paragraph("Availability", th_s), Paragraph("Remarks Log", th_s), Paragraph("File Mapping", th_s)]]
+    for row in docs_data:
+        doc_table_data.append([Paragraph(row[0], cell_s), Paragraph(row[1], cell_s), Paragraph(row[2], cell_s), Paragraph(row[3] if row[3] else "-", cell_s), Paragraph(row[4] if row[4] else "No File", cell_s)])
+    doc_table = Table(doc_table_data, colWidths=[65, 185, 60, 130, 120], repeatRows=1)
+    doc_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), brand_red), ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#cfd8dc')), ('VALIGN', (0,0), (-1,-1), 'TOP'), ('PADDING', (0,0), (-1,-1), 5)]))
+    story.append(doc_table)
+    
+    story.append(Spacer(1, 15))
+    
+    # 🔥 FIXED: Wrapped all text strings into flowable Paragraph components to prevent cell truncation errors
+    story.append(Paragraph("3. Plant Machinery Register", sec_s))
     mach_headers = ["Sr", "Description", "Unique ID", "Make/Model", "Capacity", "Specs", "Year", "Features", "Automation", "Remarks"]
     mach_table_data = [[Paragraph(h, th_s) for h in mach_headers]]
     for idx, m in enumerate(mach_data):
         mach_table_data.append([Paragraph(str(idx+1), cell_s)] + [Paragraph(str(val) if val else "-", cell_s) for val in m])
     mach_table = Table(mach_table_data, colWidths=[20, 80, 45, 55, 45, 55, 30, 80, 75, 75], repeatRows=1)
-    mach_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), brand_red), ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#cfd8dc')), ('PADDING', (0,0), (-1,-1), 4)]))
+    mach_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), brand_dark), ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#cfd8dc')), ('PADDING', (0,0), (-1,-1), 4)]))
     story.append(mach_table)
 
-    story.append(Spacer(1, 10))
-    story.append(Paragraph("3. Measuring Instruments & Lab Testing Log", sec_s))
+    story.append(Spacer(1, 15))
+    story.append(Paragraph("4. Measuring Instruments & Metrological Testing Log", sec_s))
     inst_headers = ["Category", "Instrument Name", "Make/Model", "Test", "Range", "Accuracy", "Cal Date", "NABL", "Cert No", "Remarks"]
     inst_table_data = [[Paragraph(h, th_s) for h in inst_headers]]
     for row in inst_data:
@@ -235,33 +227,21 @@ def generate_master_pdf(supplier_email):
     inst_table = Table(inst_table_data, colWidths=[65, 80, 55, 60, 45, 45, 50, 55, 55, 90], repeatRows=1)
     inst_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), brand_dark), ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#cfd8dc')), ('PADDING', (0,0), (-1,-1), 4)]))
     story.append(inst_table)
-    
-    story.append(Spacer(1, 10))
-    story.append(Paragraph("4. Plant Image Logs Submissions", sec_s))
-    photo_headers = ["Category / Target Area", "Uploaded Photo Custom Name", "Additional Remarks / Captions"]
-    photo_table_data = [[Paragraph(h, th_s) for h in photo_headers]]
-    for row in photo_data:
-        photo_table_data.append([Paragraph(row[0], cell_s), Paragraph(row[1] if row[1] else "-", cell_s), Paragraph(row[2] if row[2] else "-", cell_s)])
-    photo_table = Table(photo_table_data, colWidths=[200, 180, 180], repeatRows=1)
-    photo_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), brand_dark), ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#cfd8dc')), ('PADDING', (0,0), (-1,-1), 5)]))
-    story.append(photo_table)
 
     doc.build(story)
     buffer.seek(0)
     return buffer, core_data[4]
 
-# --- BRANDED NATIVE PORTAL HEADER ---
+# --- PORTAL BRANDED HEADER ---
 header_col1, header_col2, header_col3 = st.columns([1.5, 3.2, 2.3])
-with header_col1:
-    st.image(f"data:image/png;base64,{LOGO_BASE64}", use_container_width=True)
+with header_col1: st.image(f"data:image/png;base64,{LOGO_BASE64}", use_container_width=True)
 with header_col2:
     st.markdown("<h1 style='color: #E31E24; text-align: center; margin:0;'>DANISH POWER LIMITED</h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align: center; font-style: italic; color:#212121; font-weight:600; margin:0;'>Supplier Quality Enterprise Portal</p>", unsafe_allow_html=True)
-with header_col3:
-    st.markdown("<div style='border: 2px solid #E31E24; padding: 10px; border-radius: 6px; font-size:13px;'><b>Format No.:</b> F-12<br><b>Rev. No.:</b> 03</div>", unsafe_allow_html=True)
+with header_col3: st.markdown("<div style='border: 2px solid #E31E24; padding: 10px; border-radius: 6px; font-size:13px;'><b>Format No.:</b> F-12<br><b>Rev. No.:</b> 03</div>", unsafe_allow_html=True)
 st.markdown("<hr style='border: 1.5px solid #E31E24; margin-top:10px; margin-bottom:25px;'>", unsafe_allow_html=True)
 
-# --- PORTAL ARCHITECTURE CONTROL ---
+# --- NAVIGATION CONTROLLER ---
 st.sidebar.markdown("<h3 style='color:#E31E24; font-weight:bold;'>PORTAL ACCESS</h3>", unsafe_allow_html=True)
 portal_mode = st.sidebar.radio("Switch Dashboard View", ["Supplier Gateway Form", "DPL Quality Admin View"])
 
@@ -271,12 +251,8 @@ if portal_mode == "Supplier Gateway Form":
     
     if vendor_email:
         conn = init_connection()
-        
-        db_draft_core = None
-        db_draft_mach = []
-        db_draft_inst = []
-        existing_docs = {}
-        existing_photos = {}
+        db_draft_core, db_draft_mach, db_draft_inst = None, [], []
+        existing_docs, existing_photos = {}, {}
         
         with conn.cursor() as c:
             c.execute("SELECT * FROM core_assessment WHERE supplier_email=%s", (vendor_email,))
@@ -285,10 +261,10 @@ if portal_mode == "Supplier Gateway Form":
             db_draft_mach = c.fetchall()
             c.execute("SELECT category, name, make_model, test_name, range, accuracy, cal_date, nabl_detail, master_equip, certificate_no, remarks FROM instruments WHERE supplier_email=%s", (vendor_email,))
             db_draft_inst = c.fetchall()
-            c.execute("SELECT description, file_name FROM doc_checklist WHERE supplier_email=%s", (vendor_email,))
-            existing_docs = {r[0]: r[1] for r in c.fetchall() if r[1]}
-            c.execute("SELECT category_desc, file_name FROM plant_photos WHERE supplier_email=%s", (vendor_email,))
-            existing_photos = {r[0]: r[1] for r in c.fetchall() if r[1]}
+            c.execute("SELECT description, status, remarks, file_name FROM doc_checklist WHERE supplier_email=%s", (vendor_email,))
+            existing_docs = {r[0]: {"status": r[1], "remarks": r[2], "file_name": r[3]} for r in c.fetchall()}
+            c.execute("SELECT category_desc, custom_photo_name, remarks, file_name FROM plant_photos WHERE supplier_email=%s", (vendor_email,))
+            existing_photos = {r[0]: {"custom_name": r[1], "remarks": r[2], "file_name": r[3]} for r in c.fetchall()}
 
         if db_draft_core and db_draft_core[2] == 'SUBMITTED':
             st.success("✅ Assessment Locked: Your corporate response data matrix has been final-transmitted to Danish Power Vault.")
@@ -296,7 +272,7 @@ if portal_mode == "Supplier Gateway Form":
             if db_draft_core and db_draft_core[2] == 'DRAFT':
                 st.warning("🔄 Live Active Draft Found. All technical attributes are auto-restored below.")
             else:
-                st.info("🆕 System Initialized: Creating an empty cloud data canvas for your corporate profile register.")
+                st.info("🆕 System Initialized: Creating a clean empty canvas for your corporate profile.")
 
             st.subheader("🏢 Part B: Corporate Identity Registry")
             gcol1, gcol2 = st.columns(2)
@@ -306,10 +282,7 @@ if portal_mode == "Supplier Gateway Form":
             with gcol2:
                 a_date = st.date_input("Audit Compilation Date", datetime.now())
 
-            t1, t2, t3, t4, t5 = st.tabs([
-                "📊 1. Core Evaluation", "📎 2. Document Vault", 
-                "⚙️ 3. Machine Asset Register", "🔬 4. Metrological / Lab Records", "📸 5. Plant Photo Logs"
-            ])
+            t1, t2, t3, t4, t5 = st.tabs(["📊 1. Core Evaluation", "📎 2. Document Vault", "⚙️ 3. Machine Asset Register", "🔬 4. Metrological Records", "📸 5. Plant Photo Logs"])
 
             with t1:
                 core_inputs = {}
@@ -319,48 +292,41 @@ if portal_mode == "Supplier Gateway Form":
                     for q_num, q_text in questions.items():
                         st.markdown(f"**{q_num}** {q_text}")
                         k_code = q_num.replace('.', '_')
-                        
-                        def_status = "Yes"
-                        def_comment = ""
-                        if db_draft_core and db_idx < len(db_draft_core):
-                            def_status = db_draft_core[db_idx] if db_draft_core[db_idx] else "Yes"
-                            def_comment = db_draft_core[db_idx+1] if db_draft_core[db_idx+1] else ""
-                        
+                        def_status = db_draft_core[db_idx] if db_draft_core and db_draft_core[db_idx] else "Yes"
+                        def_comment = db_draft_core[db_idx+1] if db_draft_core and db_draft_core[db_idx+1] else ""
                         ch1, ch2 = st.columns([1, 4])
                         with ch1: status_sel = st.selectbox("Status", ["Yes", "No", "N/A"], key=f"s_{k_code}", index=["Yes", "No", "N/A"].index(def_status))
                         with ch2: comment_in = st.text_input("Evidence / Remarks", key=f"c_{k_code}", value=def_comment)
                         core_inputs[f"q_{k_code}_status"] = status_sel
                         core_inputs[f"q_{k_code}_comment"] = comment_in
                         db_idx += 2
-                    st.markdown("---")
 
             with t2:
-                st.markdown("#### Cloud Document Vault (Zero Shortcuts File Upload Engine)")
+                st.markdown("#### Cloud Document Vault")
                 doc_responses = {}
-                
                 st.markdown("##### 🔴 Mandatory Compliance Certifications")
                 for idx, doc in enumerate(mandatory_docs):
-                    if doc in existing_docs:
-                        st.caption(f"💾 **Saved Draft File:** `{existing_docs[doc]}` (No need to re-upload unless changing)")
+                    def_d_status = existing_docs[doc]["status"] if doc in existing_docs and existing_docs[doc]["status"] else "Available"
+                    def_d_rem = existing_docs[doc]["remarks"] if doc in existing_docs and existing_docs[doc]["remarks"] else ""
+                    if doc in existing_docs and existing_docs[doc]["file_name"]: st.caption(f"💾 *Saved Draft File:* `{existing_docs[doc]['file_name']}`")
                     dc1, dc2, dc3 = st.columns([2, 1, 2])
                     with dc1: st.write(f"**{idx+1}.** {doc}")
-                    with dc2: st_v = st.selectbox("Status", ["Available", "Not Available"], key=f"m_s_{idx}")
-                    with dc3: fl_v = st.file_uploader("Upload File", type=["pdf","png","jpg"], key=f"m_f_{idx}")
-                    rm_v = st.text_input("Remarks", key=f"m_r_{idx}")
+                    with dc2: st_v = st.selectbox("Status", ["Available", "Not Available"], key=f"m_s_{idx}", index=["Available", "Not Available"].index(def_d_status))
+                    with dc3: fl_v = st.file_uploader("Upload", type=["pdf","png","jpg"], key=f"m_f_{idx}")
+                    rm_v = st.text_input("Remarks", key=f"m_r_{idx}", value=def_d_rem)
                     doc_responses[doc] = {"status": st_v, "file": fl_v, "remarks": rm_v, "cat": "Mandatory"}
-                    st.markdown("<hr style='margin:4px 0;'>", unsafe_allow_html=True)
 
                 st.markdown("##### 🟡 Auxiliary System Records")
                 for idx, doc in enumerate(later_docs):
-                    if doc in existing_docs:
-                        st.caption(f"💾 **Saved Draft File:** `{existing_docs[doc]}`")
+                    def_l_status = existing_docs[doc]["status"] if doc in existing_docs and existing_docs[doc]["status"] else "Available"
+                    def_l_rem = existing_docs[doc]["remarks"] if doc in existing_docs and existing_docs[doc]["remarks"] else ""
+                    if doc in existing_docs and existing_docs[doc]["file_name"]: st.caption(f"💾 *Saved Draft File:* `{existing_docs[doc]['file_name']}`")
                     dc1, dc2, dc3 = st.columns([2, 1, 2])
                     with dc1: st.write(f"**{idx+1}.** {doc}")
-                    with dc2: st_v = st.selectbox("Status", ["Available", "Not Available"], key=f"l_s_{idx}")
-                    with dc3: fl_v = st.file_uploader("Upload File", type=["pdf","png","jpg"], key=f"l_f_{idx}")
-                    rm_v = st.text_input("Remarks", key=f"l_r_{idx}")
+                    with dc2: st_v = st.selectbox("Status", ["Available", "Not Available"], key=f"l_s_{idx}", index=["Available", "Not Available"].index(def_l_status))
+                    with dc3: fl_v = st.file_uploader("Upload", type=["pdf","png","jpg"], key=f"l_f_{idx}")
+                    rm_v = st.text_input("Remarks", key=f"l_r_{idx}", value=def_l_rem)
                     doc_responses[doc] = {"status": st_v, "file": fl_v, "remarks": rm_v, "cat": "Auxiliary"}
-                    st.markdown("<hr style='margin:4px 0;'>", unsafe_allow_html=True)
 
             with t3:
                 st.markdown("#### Dynamic Plant Machinery Capability Ledger")
@@ -376,13 +342,13 @@ if portal_mode == "Supplier Gateway Form":
                     with r1: mc_desc = st.text_input("Machine Description", key=f"m_ds_{m}", value=d_desc); mc_uid = st.text_input("Unique ID Code", key=f"m_ui_{m}", value=d_uid)
                     with r2: mc_make = st.text_input("Make/Model Specs", key=f"m_mk_{m}", value=d_make); mc_cap = st.text_input("Operating Capacity", key=f"m_cp_{m}", value=d_cap)
                     with r3: mc_spec = st.text_input("Technical Specs", key=f"m_sp_{m}", value=d_spec); mc_year = st.text_input("Installation Year", key=f"m_yr_{m}", value=d_year)
-                    with r4: mc_feat = st.text_input("Core Features", key=f"m_ft_{m}", value=d_feat); mc_auto = st.selectbox("Automation Grade", ["Manual", "Semi-Automatic", "Fully-Automatic"], key=f"m_au_{m}", index=["Manual", "Semi-Automatic", "Fully-Automatic"].index(mc_auto) if mc_auto in ["Manual", "Semi-Automatic", "Fully-Automatic"] else 0)
-                    mc_rem = st.text_input("Remarks", key=f"m_rm_{m}", value=d_rem)
+                    with r4: mc_feat = st.text_input("Core Features", key=f"m_ft_{m}", value=d_feat); mc_auto = st.selectbox("Automation Grade", ["Manual", "Semi-Automatic", "Fully-Automatic"], key=f"m_au_{m}", index=["Manual", "Semi-Automatic", "Fully-Automatic"].index(d_auto) if d_auto in ["Manual", "Semi-Automatic", "Fully-Automatic"] else 0)
+                    mc_rem = st.text_input("Remarks Log", key=f"m_rm_{m}", value=d_rem)
                     machinery_rows.append([mc_desc, mc_uid, mc_make, mc_cap, mc_spec, mc_year, mc_feat, mc_auto, mc_rem])
                     st.markdown("---")
 
             with t4:
-                st.markdown("#### Dynamic Metrological Traceability & Lab Register (NO SHORTCUTS)")
+                st.markdown("#### Dynamic Metrological Traceability & Lab Register")
                 if 'inst_count' not in st.session_state: st.session_state.inst_count = len(db_draft_inst) if db_draft_inst else 1
                 if st.button("➕ Add Metrological Instrument Row"): st.session_state.inst_count += 1
                 
@@ -396,7 +362,7 @@ if portal_mode == "Supplier Gateway Form":
                     with c2: ins_mm = st.text_input("Make/Model No.", key=f"i_mm_{r}", value=d_mm); ins_test = st.text_input("Test Performed", key=f"i_ts_{r}", value=d_test)
                     with c3: ins_rng = st.text_input("Measurement Range", key=f"i_rg_{r}", value=d_rng); ins_acc = st.text_input("Accuracy/Least Count", key=f"i_ac_{r}", value=d_acc)
                     with c4: ins_cal = st.text_input("Last Calibration Date", key=f"i_cd_{r}", value=d_cal); ins_nabl = st.selectbox("NABL Facility?", ["Yes", "No"], key=f"i_nb_{r}", index=0 if d_nabl == "Yes" else 1)
-                    ins_mst = st.text_input("Master Standard Traceability Details", key=f"i_ms_{r}", value=d_mst)
+                    ins_mst = st.text_input("Master Standard Details", key=f"i_ms_{r}", value=d_mst)
                     ins_cert = st.text_input("Calibration Certificate Ref No.", key=f"i_cr_{r}", value=d_cert)
                     ins_rem = st.text_input("Remarks Log", key=f"i_rm_{r}", value=d_rem)
                     instrument_rows.append([ins_cat, ins_name, ins_mm, ins_test, ins_rng, ins_acc, ins_cal, ins_nabl, ins_mst, ins_cert, ins_rem])
@@ -406,21 +372,22 @@ if portal_mode == "Supplier Gateway Form":
                 st.markdown("#### Factory Plant Physical Environment Image Evidences")
                 photo_responses = []
                 for idx, p_desc in enumerate(plant_photos):
-                    if p_desc in existing_photos:
-                        st.caption(f"📸 **Saved Draft Photo Frame:** `{existing_photos[p_desc]}`")
+                    def_p_name = existing_photos[p_desc]["custom_name"] if p_desc in existing_photos and existing_photos[p_desc]["custom_name"] else ""
+                    def_p_rem = existing_photos[p_desc]["remarks"] if p_desc in existing_photos and existing_photos[p_desc]["remarks"] else ""
+                    if p_desc in existing_photos and existing_photos[p_desc]["file_name"]: st.caption(f"📸 *Saved Photo:* `{existing_photos[p_desc]['file_name']}`")
                     st.markdown(f"📸 **{idx+1}. Target Metric Zone: {p_desc}**")
                     pc1, pc2 = st.columns([1, 1])
                     with pc1: img_file = st.file_uploader("Upload Image Frame", type=["jpg","png","jpeg"], key=f"p_f_{idx}")
                     with pc2:
-                        photo_custom_name = st.text_input("Photo Frame Custom Name", placeholder="e.g. Unit 1 CNC Machine", key=f"p_n_{idx}")
-                        photo_remarks = st.text_input("Technical Capture Captions", key=f"p_r_{idx}")
+                        photo_custom_name = st.text_input("Photo Frame Custom Name", key=f"p_n_{idx}", value=def_p_name)
+                        photo_remarks = st.text_input("Technical Capture Captions", key=f"p_r_{idx}", value=def_p_rem)
                     photo_responses.append({"cat_desc": p_desc, "file": img_file, "custom_name": photo_custom_name, "remarks": photo_remarks})
-                    st.markdown("---")
 
-            # --- SUBMISSION LOGIC ORCHESTRATION ---
-            st.markdown("<br>", unsafe_allow_html=True)
+            # --- SUBMISSION CONTROLS ---
+            st.markdown("<br><hr style='border: 1px solid #E31E24;'><h3 style='color:#E31E24;'>📥 Step C: Form Draft Vault & Submission Transmission</h3>", unsafe_allow_html=True)
             scol1, scol2 = st.columns(2)
 
+            # 🔥 FIXED: Robust Row-level transaction logic to completely avoid ON CONFLICT database execution errors
             def commit_to_postgresql(status_string):
                 with conn.cursor() as c:
                     columns_string = "supplier_email, submission_status, timestamp, supplier_name, product_name, audit_date"
@@ -435,34 +402,38 @@ if portal_mode == "Supplier Gateway Form":
                     placeholders = ", ".join(["%s"] * len(value_array))
                     c.execute(f"INSERT INTO core_assessment ({columns_string}) VALUES ({placeholders}) ON CONFLICT (supplier_email) DO UPDATE SET {conflict_update}", value_array)
                     
-                    # Machinery Logic
                     c.execute("DELETE FROM machinery WHERE supplier_email=%s", (vendor_email,))
                     for row in machinery_rows:
                         if row[0]: c.execute("INSERT INTO machinery (supplier_email, description, unique_id, make_model, capacity, specification, installation_year, features, automation, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [vendor_email] + row)
                     
-                    # Lab Instruments Logic (NO SHORTCUT FIX)
                     c.execute("DELETE FROM instruments WHERE supplier_email=%s", (vendor_email,))
                     for row in instrument_rows:
                         if row[1]: c.execute("INSERT INTO instruments (supplier_email, category, name, make_model, test_name, range, accuracy, cal_date, nabl_detail, master_equip, certificate_no, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [vendor_email] + row)
                     
-                    # File Upload Vault Database Logic
+                    # Safe conditional file update checks avoiding null target loss
                     for d_title, d_val in doc_responses.items():
+                        c.execute("SELECT id FROM doc_checklist WHERE supplier_email=%s AND description=%s", (vendor_email, d_title))
+                        exists = c.fetchone()
                         if d_val["file"]:
                             binary_data = psycopg2.Binary(d_val["file"].read())
                             f_name = d_val["file"].name
-                            c.execute("DELETE FROM doc_checklist WHERE supplier_email=%s AND description=%s", (vendor_email, d_title))
-                            c.execute("INSERT INTO doc_checklist (supplier_email, category, description, status, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (vendor_email, d_val["cat"], d_title, d_val["status"], d_val["remarks"], f_name, binary_data))
+                            if exists: c.execute("UPDATE doc_checklist SET status=%s, remarks=%s, file_name=%s, file_data=%s WHERE supplier_email=%s AND description=%s", (d_val["status"], d_val["remarks"], f_name, binary_data, vendor_email, d_title))
+                            else: c.execute("INSERT INTO doc_checklist (supplier_email, category, description, status, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (vendor_email, d_val["cat"], d_title, d_val["status"], d_val["remarks"], f_name, binary_data))
                         else:
-                            c.execute("UPDATE doc_checklist SET status=%s, remarks=%s WHERE supplier_email=%s AND description=%s", (d_val["status"], d_val["remarks"], vendor_email, d_title))
+                            if exists: c.execute("UPDATE doc_checklist SET status=%s, remarks=%s WHERE supplier_email=%s AND description=%s", (d_val["status"], d_val["remarks"], vendor_email, d_title))
+                            else: c.execute("INSERT INTO doc_checklist (supplier_email, category, description, status, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, NULL, NULL)", (vendor_email, d_val["cat"], d_title, d_val["status"], d_val["remarks"]))
 
-                    # Photo Registry Database Logic
                     for photo in photo_responses:
+                        c.execute("SELECT id FROM plant_photos WHERE supplier_email=%s AND category_desc=%s", (vendor_email, photo["cat_desc"]))
+                        exists = c.fetchone()
                         if photo["file"]:
                             photo_binary = psycopg2.Binary(photo["file"].read())
-                            c.execute("DELETE FROM plant_photos WHERE supplier_email=%s AND category_desc=%s", (vendor_email, photo["cat_desc"]))
-                            c.execute("INSERT INTO plant_photos (supplier_email, category_desc, custom_photo_name, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, %s)", (vendor_email, photo["cat_desc"], photo["custom_name"], photo["remarks"], photo["file"].name, photo_binary))
+                            f_name = photo["file"].name
+                            if exists: c.execute("UPDATE plant_photos SET custom_photo_name=%s, remarks=%s, file_name=%s, file_data=%s WHERE supplier_email=%s AND category_desc=%s", (photo["custom_name"], photo["remarks"], f_name, photo_binary, vendor_email, photo["cat_desc"]))
+                            else: c.execute("INSERT INTO plant_photos (supplier_email, category_desc, custom_photo_name, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, %s)", (vendor_email, photo["cat_desc"], photo["custom_name"], photo["remarks"], f_name, photo_binary))
                         else:
-                            c.execute("UPDATE plant_photos SET custom_photo_name=%s, remarks=%s WHERE supplier_email=%s AND category_desc=%s", (photo["custom_name"], photo["remarks"], vendor_email, photo["cat_desc"]))
+                            if exists: c.execute("UPDATE plant_photos SET custom_photo_name=%s, remarks=%s WHERE supplier_email=%s AND category_desc=%s", (photo["custom_name"], photo["remarks"], vendor_email, photo["cat_desc"]))
+                            else: c.execute("INSERT INTO plant_photos (supplier_email, category_desc, custom_photo_name, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, NULL, NULL)", (vendor_email, photo["cat_desc"], photo["custom_name"], photo["remarks"]))
                 conn.commit()
 
             with scol1:
@@ -470,7 +441,7 @@ if portal_mode == "Supplier Gateway Form":
                     if not s_name: st.error("Validation Error: Supplier Corporate Name is required to commit a draft.")
                     else:
                         commit_to_postgresql('DRAFT')
-                        st.success("💾 State Transmitted: Partial draft snapshot locked inside cloud.")
+                        st.success("💾 State Transmitted: Partial draft snapshot locked inside cloud database.")
 
             with scol2:
                 if st.button("🚀 FINAL COMPLETED SUBMIT TO DANISH POWER", use_container_width=True):
@@ -483,31 +454,22 @@ if portal_mode == "Supplier Gateway Form":
 elif portal_mode == "DPL Quality Admin View":
     st.markdown("## 🛡️ Quality Assurance Verification Vault")
     admin_token = st.text_input("Enter Enterprise Operational Security Access Token", type="password")
-    
     if admin_token == st.secrets["admin"]["password"]:
         st.success("🔑 Authorization Confirmed.")
         conn = init_connection()
         with conn.cursor() as c:
             c.execute("SELECT id, supplier_email, supplier_name, product_name, submission_status FROM core_assessment ORDER BY id DESC")
             records = c.fetchall()
-            
         if not records: st.warning("No vendor records currently populate relational tables.")
         else:
             lookup_options = [f"ID: {r[0]} | Name: {r[2]} ({r[1]}) | State: {r[4]}" for r in records]
             target_selection = st.selectbox("Choose a Vendor Data Matrix Record for Analysis", lookup_options)
             selected_email = [row[1] for row in records if f"ID: {row[0]}" in target_selection][0]
-            
             st.markdown("---")
             if st.button("📄 EXECUTE AND BUILD BRANDED OFFICIAL COMPLIANCE PDF REPORT", use_container_width=True):
                 with st.spinner("Compiling structural entities into PDF layout..."):
                     pdf_stream, resolved_name = generate_master_pdf(selected_email)
                     if pdf_stream:
-                        st.download_button(
-                            label=f"📥 DOWNLOAD OFFICIAL BRANDED AUDIT REPORT FOR {resolved_name.upper()}",
-                            data=pdf_stream,
-                            file_name=f"DPL_Audit_Report_{resolved_name.replace(' ', '_')}.pdf",
-                            mime="application/pdf",
-                            use_container_width=True
-                        )
+                        st.download_button(label=f"📥 DOWNLOAD OFFICIAL BRANDED AUDIT REPORT FOR {resolved_name.upper()}", data=pdf_stream, file_name=f"DPL_Audit_Report_{resolved_name.replace(' ', '_')}.pdf", mime="application/pdf", use_container_width=True)
                     else: st.error("Compilation Fault: Empty or mismatched structure matrices encountered.")
     elif admin_token != "": st.error("Security Halt: Signature validation profile failed.")

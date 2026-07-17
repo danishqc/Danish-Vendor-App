@@ -21,7 +21,8 @@ def init_connection():
         port=st.secrets["database"]["port"],
         dbname=st.secrets["database"]["dbname"],
         user=st.secrets["database"]["user"],
-        password=st.secrets["database"]["password"]
+        password=st.secrets["database"]["password"],
+        sslmode="require"  # 🔥 SECURITY FIX: Cloud firewall connection clear karne ke liye
     )
 
 def init_db():

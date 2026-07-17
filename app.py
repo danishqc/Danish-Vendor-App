@@ -27,15 +27,29 @@ def init_connection():
 
 def init_db():
     conn = init_connection()
+    conn.autocommit = True
     with conn.cursor() as c:
+        # Create core table with all extended fields
         cols = ["id SERIAL PRIMARY KEY", "supplier_email VARCHAR(255) UNIQUE", "submission_status VARCHAR(50)", 
-                "timestamp TEXT", "supplier_name TEXT", "product_name TEXT", "audit_date TEXT"]
+                "timestamp TEXT", "supplier_name TEXT", "product_name TEXT", "audit_date TEXT",
+                "gst_no TEXT", "pan_no TEXT", "cin_no TEXT", "msme_cert TEXT", "iso_cert TEXT", "approval_status TEXT"]
         for i in range(1, 9):
             for j in range(1, 6):
                 cols.append(f"q_{i}_{j}_status TEXT")
                 cols.append(f"q_{i}_{j}_comment TEXT")
         c.execute(f"CREATE TABLE IF NOT EXISTS core_assessment ({', '.join(cols)})")
         
+        # 🔥 SMART AUTO-MIGRATION ENGINE: Adds new columns to existing database automatically without crashing
+        try:
+            c.execute("ALTER TABLE core_assessment ADD COLUMN IF NOT EXISTS gst_no TEXT;")
+            c.execute("ALTER TABLE core_assessment ADD COLUMN IF NOT EXISTS pan_no TEXT;")
+            c.execute("ALTER TABLE core_assessment ADD COLUMN IF NOT EXISTS cin_no TEXT;")
+            c.execute("ALTER TABLE core_assessment ADD COLUMN IF NOT EXISTS msme_cert TEXT;")
+            c.execute("ALTER TABLE core_assessment ADD COLUMN IF NOT EXISTS iso_cert TEXT;")
+            c.execute("ALTER TABLE core_assessment ADD COLUMN IF NOT EXISTS approval_status TEXT;")
+        except Exception:
+            pass
+
         c.execute("""CREATE TABLE IF NOT EXISTS doc_checklist (
             id SERIAL PRIMARY KEY, supplier_email VARCHAR(255), category TEXT, description TEXT, status TEXT, remarks TEXT, file_name TEXT, file_data BYTEA
         )""")
@@ -48,7 +62,6 @@ def init_db():
         c.execute("""CREATE TABLE IF NOT EXISTS plant_photos (
             id SERIAL PRIMARY KEY, supplier_email VARCHAR(255), category_desc TEXT, custom_photo_name TEXT, remarks TEXT, file_name TEXT, file_data BYTEA
         )""")
-    conn.commit()
 
 init_db()
 
@@ -142,7 +155,7 @@ plant_photos = [
     "Display of Work Instruction", "Ready for Dispatch"
 ]
 
-# --- FULL BRANDED PDF ENGINE WITH ZERO SHORTCUTS AND PERFECT MATH WIDTHS ---
+# --- FULL BRANDED PDF ENGINE WITH ZERO SHORTCUTS ---
 def generate_master_pdf(supplier_email):
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=25, leftMargin=25, topMargin=30, bottomMargin=30)
@@ -177,18 +190,22 @@ def generate_master_pdf(supplier_email):
 
     if not core_data: return None
 
-    # Meta Table (281 + 281 = 562)
-    meta_table = Table([
+    # Meta Table Updated with Extended 6 Fields
+    meta_table_data = [
         [Paragraph(f"<b>Supplier Name:</b> {core_data[4]}", cell_s), Paragraph(f"<b>Audit Date:</b> {core_data[6]}", cell_s)],
-        [Paragraph(f"<b>Product Supplied:</b> {core_data[5]}", cell_s), Paragraph(f"<b>Report Compiled:</b> {datetime.now().strftime('%d-%m-%Y')}", cell_s)]
-    ], colWidths=[281, 281])
+        [Paragraph(f"<b>Product Supplied:</b> {core_data[5]}", cell_s), Paragraph(f"<b>GST No:</b> {core_data[7]}", cell_s)],
+        [Paragraph(f"<b>PAN No:</b> {core_data[8]}", cell_s), Paragraph(f"<b>CIN / Reg No:</b> {core_data[9]}", cell_s)],
+        [Paragraph(f"<b>MSME Certificate:</b> {core_data[10]}", cell_s), Paragraph(f"<b>ISO Certificate:</b> {core_data[11]}", cell_s)],
+        [Paragraph(f"<b>Approval Status:</b> {core_data[12]}", cell_b), Paragraph(f"<b>Report Compiled:</b> {datetime.now().strftime('%d-%m-%Y')}", cell_s)]
+    ]
+    meta_table = Table(meta_table_data, colWidths=[281, 281])
     meta_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f5f7f8')), ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cfd8dc')), ('PADDING', (0,0), (-1,-1), 8)]))
     story.append(meta_table)
     
-    # Section 1: Core Matrix Table (35 + 275 + 50 + 202 = 562)
+    # Section 1: Core Matrix Table
     story.append(Paragraph("1. Core Compliance Evaluation Matrix (1.1 - 8.5)", sec_s))
     q_table_data = [[Paragraph("S.No", th_s), Paragraph("Checkpoints Description", th_s), Paragraph("Status", th_s), Paragraph("Auditor Remarks", th_s)]]
-    db_idx = 7
+    db_idx = 13  # Offset shifted by 6 to map correctly after the new fields
     for sec_name, questions in audit_points.items():
         q_table_data.append([Paragraph(f"<b>{sec_name}</b>", cell_b), "", "", ""])
         for q_num, q_text in questions.items():
@@ -200,7 +217,7 @@ def generate_master_pdf(supplier_email):
     
     story.append(PageBreak())
     
-    # Section 2: Document Table (70 + 180 + 60 + 130 + 122 = 562)
+    # Section 2: Document Table
     story.append(Paragraph("2. Document Checklist & Corporate Records Registry", sec_s))
     doc_table_data = [[Paragraph("Category", th_s), Paragraph("Document Description", th_s), Paragraph("Availability", th_s), Paragraph("Remarks Log", th_s), Paragraph("File Mapping", th_s)]]
     for row in docs_data:
@@ -211,7 +228,7 @@ def generate_master_pdf(supplier_email):
     
     story.append(Spacer(1, 15))
     
-    # Section 3: Machinery Table (20 + 80 + 45 + 55 + 45 + 55 + 30 + 80 + 75 + 77 = 562)
+    # Section 3: Machinery Table
     story.append(Paragraph("3. Plant Machinery Register & Structural Ledger", sec_s))
     mach_headers = ["Sr", "Description", "Unique ID", "Make/Model", "Capacity", "Specs", "Year", "Features", "Automation", "Remarks"]
     mach_table_data = [[Paragraph(h, th_s) for h in mach_headers]]
@@ -223,7 +240,7 @@ def generate_master_pdf(supplier_email):
 
     story.append(Spacer(1, 15))
     
-    # Section 4: Instruments Table (🔥 PERFECT MATH FIXED: 55 + 70 + 50 + 60 + 40 + 45 + 50 + 40 + 55 + 97 = 562)
+    # Section 4: Instruments Table
     story.append(Paragraph("4. Measuring Instruments & Metrological Testing Log", sec_s))
     inst_headers = ["Category", "Instrument Name", "Make/Model", "Test", "Range", "Accuracy", "Cal Date", "NABL", "Cert No", "Remarks"]
     inst_table_data = [[Paragraph(h, th_s) for h in inst_headers]]
@@ -235,7 +252,7 @@ def generate_master_pdf(supplier_email):
     
     story.append(Spacer(1, 15))
     
-    # Section 5: Plant Photo Registry Table (162 + 200 + 200 = 562)
+    # Section 5: Plant Photo Registry Table
     story.append(Paragraph("5. Factory Physical Zone Image Submissions Register", sec_s))
     photo_headers = ["Target Evaluation Zone", "Uploaded Photo Custom Identify Name", "Technical Capture Remarks / Captions"]
     photo_table_data = [[Paragraph(ph, th_s) for ph in photo_headers]]
@@ -297,25 +314,34 @@ if portal_mode == "Supplier Gateway Form":
                 st.info("🆕 System Initialized: Creating a clean empty canvas for your corporate profile.")
 
             st.subheader("🏢 Part B: Corporate Identity Registry")
-            gcol1, gcol2 = st.columns(2)
+            gcol1, gcol2, gcol3 = st.columns(3)
             with gcol1:
                 s_name = st.text_input("Supplier Corporate Name*", value=db_draft_core[4] if db_draft_core else "")
                 p_name = st.text_input("Product Component Description*", value=db_draft_core[5] if db_draft_core else "")
+                gst_no = st.text_input("GST No.", value=db_draft_core[7] if db_draft_core and len(db_draft_core)>7 else "")
             with gcol2:
+                pan_no = st.text_input("PAN No.", value=db_draft_core[8] if db_draft_core and len(db_draft_core)>8 else "")
+                cin_no = st.text_input("CIN / Registration No.", value=db_draft_core[9] if db_draft_core and len(db_draft_core)>9 else "")
+                msme_cert = st.text_input("MSME Certificate Detail", value=db_draft_core[10] if db_draft_core and len(db_draft_core)>10 else "")
+            with gcol3:
+                iso_cert = st.text_input("ISO Certificate No.", value=db_draft_core[11] if db_draft_core and len(db_draft_core)>11 else "")
+                approval_options = ["Pending Review", "Approved", "Conditionally Approved", "Rejected"]
+                app_idx = approval_options.index(db_draft_core[12]) if db_draft_core and len(db_draft_core)>12 and db_draft_core[12] in approval_options else 0
+                approval_status = st.selectbox("Approval Status", approval_options, index=app_idx)
                 a_date = st.date_input("Audit Compilation Date", datetime.now())
 
             t1, t2, t3, t4, t5 = st.tabs(["📊 1. Core Evaluation", "📎 2. Document Vault", "⚙️ 3. Machine Asset Register", "🔬 4. Metrological Records", "📸 5. Plant Photo Logs"])
 
             with t1:
                 core_inputs = {}
-                db_idx = 7
+                db_idx = 13  # Offset shifted by 6 to map correctly to questions
                 for sec_title, questions in audit_points.items():
                     st.markdown(f"<div style='background-color:#FFEBEE; padding:8px; border-left: 4px solid #E31E24; font-weight:bold; color:#B71C1C;'>{sec_title}</div>", unsafe_allow_html=True)
                     for q_num, q_text in questions.items():
                         st.markdown(f"**{q_num}** {q_text}")
                         k_code = q_num.replace('.', '_')
-                        def_status = db_draft_core[db_idx] if db_draft_core and db_draft_core[db_idx] else "Yes"
-                        def_comment = db_draft_core[db_idx+1] if db_draft_core and db_draft_core[db_idx+1] else ""
+                        def_status = db_draft_core[db_idx] if db_draft_core and len(db_draft_core)>db_idx and db_draft_core[db_idx] else "Yes"
+                        def_comment = db_draft_core[db_idx+1] if db_draft_core and len(db_draft_core)>db_idx+1 and db_draft_core[db_idx+1] else ""
                         ch1, ch2 = st.columns([1, 4])
                         with ch1: status_sel = st.selectbox("Status", ["Yes", "No", "N/A"], key=f"s_{k_code}", index=["Yes", "No", "N/A"].index(def_status))
                         with ch2: comment_in = st.text_input("Evidence / Remarks", key=f"c_{k_code}", value=def_comment)
@@ -410,9 +436,9 @@ if portal_mode == "Supplier Gateway Form":
             def commit_to_postgresql(status_string):
                 try:
                     with conn.cursor() as c:
-                        columns_string = "supplier_email, submission_status, timestamp, supplier_name, product_name, audit_date"
-                        value_array = [vendor_email, status_string, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), s_name, p_name, str(a_date)]
-                        conflict_update = "submission_status=EXCLUDED.submission_status, timestamp=EXCLUDED.timestamp, supplier_name=EXCLUDED.supplier_name, product_name=EXCLUDED.product_name, audit_date=EXCLUDED.audit_date"
+                        columns_string = "supplier_email, submission_status, timestamp, supplier_name, product_name, audit_date, gst_no, pan_no, cin_no, msme_cert, iso_cert, approval_status"
+                        value_array = [vendor_email, status_string, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), s_name, p_name, str(a_date), gst_no, pan_no, cin_no, msme_cert, iso_cert, approval_status]
+                        conflict_update = "submission_status=EXCLUDED.submission_status, timestamp=EXCLUDED.timestamp, supplier_name=EXCLUDED.supplier_name, product_name=EXCLUDED.product_name, audit_date=EXCLUDED.audit_date, gst_no=EXCLUDED.gst_no, pan_no=EXCLUDED.pan_no, cin_no=EXCLUDED.cin_no, msme_cert=EXCLUDED.msme_cert, iso_cert=EXCLUDED.iso_cert, approval_status=EXCLUDED.approval_status"
                         
                         for key, val in core_inputs.items():
                             columns_string += f", {key}"

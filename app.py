@@ -479,7 +479,7 @@ elif portal_mode == "DPL Quality Admin View":
     st.markdown("<h2 style='color:#E31E24;'>🛡️ Quality Assurance Verification Vault</h2>", unsafe_allow_html=True)
     passkey = st.text_input("Enter Enterprise Security Access Token Key", type="password")
     
-    if passkey == "danish123":
+    if passkey == "Bhanu@283":
         st.success("Authorization Confirmed. Access Granted to Database records.")
         
         conn = sqlite3.connect('danish_power_enterprise.db')

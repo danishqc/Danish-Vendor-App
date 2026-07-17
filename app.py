@@ -11,7 +11,7 @@ import io
 st.set_page_config(page_title="Danish Power Limited - Enterprise Master Portal", layout="wide")
 
 # --- NATIVE EMBEDDED LOGO ENCODING STRATEGY ---
-LOGO_BASE64 = "iVBORw0KGgoAAAANSUhEUgAAAZcAAAB8CAMAAACSTA3KAAAAyVBMVEX////jHiThAAAAAADjGyH86OniEBj98/PiCxXjGR/97+/thofiAArjFRziAA71xsbrcnToVVnlOT7yrrD74uMODAn/+vr0uLnmQ0j40dL62tvrdnjvm5zlMzjxoqOKionpaWvjJSumpqZ9fX3pYmX1v8DujI7w8PDvk5Wzs7PpXF/zsbL4z9AaGBePjo4rKilhYWCbm5rCwsJWVVVubW3sf4HnTlIlJCM5ODfd3d3rbXDmQkYWFBPOzs4yMTBBQD/k4+NNTEx1dXSo7yhCAAAQPUlEQVR4nO1di1riOhAuaYEW24LQgnKTKjdRVkURV3HVff+HOukFSCaXtt6WPZv/+845QtJkMn8yM5mEHk1TUFBQUFBQUFBQUFBQUFBQUFBQUFBQUPincTmokRg2/7RA2dCmxX4sf7TBxiPV3sFnCPkRtFCJBPrwAL8HVSB25aMNLqkG3fpnCPkRtOwCib+HF1rsD/NyYJLtWUefIeRHoHiJoXj5FChe9hOKl/2E4mU/oXjZTyhe9hOKl/2E4mU/MUI0FC//Uyhe9hOKl/3En+OlXClzkvjv5aVSLHpesfKXHAuUi15RPrLv58UbdTtHvaBgmY4RBL37cb9a3JXm5qV43F/i5kzXRsg1jaBe614W0x5KR7nd7w6f6r3e0/2gS0n4MVSOu8MgcFxklwpBfdxvC+qJeQklG4SS1Z+G0+7I+4yp6PWHBay+kmUZhlHA/xiWY2IZe51RQkAuXsqjg17IBm4uqY8bLLkI1afb8RbqJIIW1cCgRxb2asnXxf6RiVzXsUI4JRe3GAxaMlGqAd2NoO5o5iLcrGEkspo2Khwc82oKeKk07h1khwqMRMO6Q8Zh35MpKRXFbh3ZjlHgwCoh8/EyrJSDl8uOg0yL11zBctFRwgCySKAG1cRhiSw0Z9GXxwNkW1DMUMIhV4MRqqAbbpw8LSCHEdUwUb3K1uXy0q7ZrAINvPieGu9eNcePyOUrMWm+hOqtHLy06qjE5XgzFNSLhktv+GzAC6UnZ4i/qjyikkBCBx1dCqTJsK8cBbZAXgsNGTvJ4aXcEUmGWzD62akg0J4J2yRb712OsvEy6iEZyUlzj83cvLRsSiEADhKc3KfyUp7JBC7ZcMmwvFRNmWQGqotclRjNDmcB84CZoecUnxdPOsgdzF4xJy8HSLYGwyZNrjFL48UryJQaqpV2fCwv0zTJLJR3yVQtuVCUgPRHLi+NDGsvhmMV8/Ay69C1uQJyh5/CS1tqwuNmaRMJeRmnS1ZAy1y0jNOYlnXF8tJ8zCDidkAB/VnKC3bumWTiECPnpZJKC+7booZK84Kjg0yS5SCmfJ9DjWxPDC+VnpunATAl5LxkFaoBhUrhpQ66wQGuWYJUmR0JL1kly2zKikFWm8PvCPLiOe9S5QafwksBMS5WykufLsROdDidDurQ5yIyKHSFuVlWgrikRtGun2DvBQlFiFLe5/Di9XLxYtLyWX2ktjLG9IPueOP82JluwBYNrgDD7dCeDcTBCZCtmBrmAyQ5qVicSsbJRshs9AzomZlcmfkxcKCITNs1eZukhh7IeNlRJU5h4TyKZNMsS3iJZLMdWyR4jg2loMjnhFzkHXYPfaKeHNR8byLg57tCic64AUa6ggmCjp9z8OqaBa9y+mTKdq/FbLxYrhufXrpecVy0fMaNe4mvZCDlw6pBKNEFgWUaklDxufFtXvjaiLZxTLgxKXsUuagw3HRDrofgWrFcUmkSpqXpc3WcO0OsPblfiCMADPwUnK7tNe+5EQucLsh44WKPZwZ+diUUhAiFMPjxUFjOi/QHrADRVC7LKrseAw05G5LGy4/PKB4uWTbc9CUlxkaibZx6bzYMzY07zMdRykb8VApXqiiEhV1gePn7q6Ew4t5xGZ3RowxKw14+iXRhEEqfshsCSqXh9xwmuKlxxhUdC9IpTZr/CWTyovb4TU3YoRD9HTIzAttZ8ptCsRTLC8mtdI2aDM+wE5LYY4ZK8abi1s0eJokeWFnLTnBIEbcVE0aL859xrGAgDQzLwU3209ZGF5EkVYLagWJcqsJygyTiDsXRWOLHyF4CaCioZGn4TE7t0I6L7boAIzZoNJ9y3gBER3K9Fsrhhd2z5TgCQzTTdlbMlPMrckfYKmneGFsiZwWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQnfyD/WXAGsq4oXi6YKNJFB2lJelineLeKiLeKiLeKl8iJyWTAwnzEvhxRRO5i4YjTmmijPHYxglNE5nBvIidhtQa2kOBnoDJ/2M+oCxfAQvQ6BDeyxpKQJnAabwgoQ5c7z807mB7Fw83JbQ2/G1dD+O/6/6//wO373f/jtw9tN/Nff/w8u+e519c73j09vXs/ebg/3D/9v7u8fn69/Pcf/APj+j/T15fXN1/mI6+Hh7ub6KuxG/e/1bXWz2T29fHl4SHWv6//D1XnF49XDfVwe+Lq4vr6Zz26/P9zeP/y/vb1/eLq/f59N3V/f3t7++PqF42T68l8Pq1Cvf/28CrvRD/Xz9erh8e3H1fXb6sXq6vFqdfPz6vXtNdbH8w2h02c2P728/rV6m89fV2/Pz//V8z+f/sL758vFf+K/Xj3hL9bHh6fT+erDqfV5/PPDy6t1ebp4ur7+D2D6n+XhX149wTev2vKvv5e381v1qfNn2uKnO/8G4/PjrOf/Wv3vXw5xXz18+vj93WzHBcqVx5if4b/pM5sXWb3h/w/5tBvVefD9EwAAAABJRU5ErkJggg=="
+LOGO_BASE64 = "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"
 
 # --- POSTGRESQL POOLER CONNECTION INITIALIZATION ---
 @st.cache_resource
@@ -52,7 +52,7 @@ def init_db():
 
 init_db()
 
-# --- COMPLETE UNABRIDGED AUDIT MATRIX DATA STRUCTURES (NO TRUNCATION) ---
+# --- COMPLETE UNABRIDGED AUDIT MATRIX DATA STRUCTURES ---
 audit_points = {
     "1. Raw Material, Planning & Traceability": {
         "1.1": "Is raw material quality ensured through testing/ verifying test reports?",
@@ -142,7 +142,7 @@ plant_photos = [
     "Display of Work Instruction", "Ready for Dispatch"
 ]
 
-# --- BRANDED PDF ENGINE (🔥 100% SHORTCUT-FREE AND WRAPPED FOR LAYOUT ACCURACY) ---
+# --- FULL BRANDED PDF ENGINE WITH ZERO SHORTCUTS AND PERFECT MATH WIDTHS ---
 def generate_master_pdf(supplier_email):
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=25, leftMargin=25, topMargin=30, bottomMargin=30)
@@ -177,6 +177,7 @@ def generate_master_pdf(supplier_email):
 
     if not core_data: return None
 
+    # Meta Table (281 + 281 = 562)
     meta_table = Table([
         [Paragraph(f"<b>Supplier Name:</b> {core_data[4]}", cell_s), Paragraph(f"<b>Audit Date:</b> {core_data[6]}", cell_s)],
         [Paragraph(f"<b>Product Supplied:</b> {core_data[5]}", cell_s), Paragraph(f"<b>Report Compiled:</b> {datetime.now().strftime('%d-%m-%Y')}", cell_s)]
@@ -184,7 +185,7 @@ def generate_master_pdf(supplier_email):
     meta_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f5f7f8')), ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cfd8dc')), ('PADDING', (0,0), (-1,-1), 8)]))
     story.append(meta_table)
     
-    # 1. Core Matrix Table
+    # Section 1: Core Matrix Table (35 + 275 + 50 + 202 = 562)
     story.append(Paragraph("1. Core Compliance Evaluation Matrix (1.1 - 8.5)", sec_s))
     q_table_data = [[Paragraph("S.No", th_s), Paragraph("Checkpoints Description", th_s), Paragraph("Status", th_s), Paragraph("Auditor Remarks", th_s)]]
     db_idx = 7
@@ -199,7 +200,7 @@ def generate_master_pdf(supplier_email):
     
     story.append(PageBreak())
     
-    # 2. Document Table
+    # Section 2: Document Table (70 + 180 + 60 + 130 + 122 = 562)
     story.append(Paragraph("2. Document Checklist & Corporate Records Registry", sec_s))
     doc_table_data = [[Paragraph("Category", th_s), Paragraph("Document Description", th_s), Paragraph("Availability", th_s), Paragraph("Remarks Log", th_s), Paragraph("File Mapping", th_s)]]
     for row in docs_data:
@@ -210,7 +211,7 @@ def generate_master_pdf(supplier_email):
     
     story.append(Spacer(1, 15))
     
-    # 3. Machinery Table
+    # Section 3: Machinery Table (20 + 80 + 45 + 55 + 45 + 55 + 30 + 80 + 75 + 77 = 562)
     story.append(Paragraph("3. Plant Machinery Register & Structural Ledger", sec_s))
     mach_headers = ["Sr", "Description", "Unique ID", "Make/Model", "Capacity", "Specs", "Year", "Features", "Automation", "Remarks"]
     mach_table_data = [[Paragraph(h, th_s) for h in mach_headers]]
@@ -222,19 +223,19 @@ def generate_master_pdf(supplier_email):
 
     story.append(Spacer(1, 15))
     
-    # 4. Instruments Table
+    # Section 4: Instruments Table (🔥 PERFECT MATH FIXED: 55 + 70 + 50 + 60 + 40 + 45 + 50 + 40 + 55 + 97 = 562)
     story.append(Paragraph("4. Measuring Instruments & Metrological Testing Log", sec_s))
     inst_headers = ["Category", "Instrument Name", "Make/Model", "Test", "Range", "Accuracy", "Cal Date", "NABL", "Cert No", "Remarks"]
     inst_table_data = [[Paragraph(h, th_s) for h in inst_headers]]
     for row in inst_data:
         inst_table_data.append([Paragraph(str(val) if val else "-", cell_s) for val in row])
-    inst_table = Table(inst_table_data, colWidths=[65, 80, 55, 60, 45, 45, 50, 55, 55, 97], repeatRows=1)
+    inst_table = Table(inst_table_data, colWidths=[55, 70, 50, 60, 40, 45, 50, 40, 55, 97], repeatRows=1)
     inst_table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), brand_dark), ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor('#cfd8dc')), ('VALIGN', (0,0), (-1,-1), 'TOP'), ('PADDING', (0,0), (-1,-1), 4)]))
     story.append(inst_table)
     
     story.append(Spacer(1, 15))
     
-    # 🔥 FIXED: Added the complete shortcut-free Plant Photo Submission Register mapping table into PDF engine
+    # Section 5: Plant Photo Registry Table (162 + 200 + 200 = 562)
     story.append(Paragraph("5. Factory Physical Zone Image Submissions Register", sec_s))
     photo_headers = ["Target Evaluation Zone", "Uploaded Photo Custom Identify Name", "Technical Capture Remarks / Captions"]
     photo_table_data = [[Paragraph(ph, th_s) for ph in photo_headers]]
@@ -281,6 +282,11 @@ if portal_mode == "Supplier Gateway Form":
             existing_docs = {r[0]: {"status": r[1], "remarks": r[2], "file_name": r[3]} for r in c.fetchall()}
             c.execute("SELECT category_desc, custom_photo_name, remarks, file_name FROM plant_photos WHERE supplier_email=%s", (vendor_email,))
             existing_photos = {r[0]: {"custom_name": r[1], "remarks": r[2], "file_name": r[3]} for r in c.fetchall()}
+
+        if 'current_vendor' not in st.session_state or st.session_state.current_vendor != vendor_email:
+            st.session_state.current_vendor = vendor_email
+            st.session_state.mach_count = max(len(db_draft_mach), 1)
+            st.session_state.inst_count = max(len(db_draft_inst), 1)
 
         if db_draft_core and db_draft_core[2] == 'SUBMITTED':
             st.success("✅ Assessment Locked: Your corporate response data matrix has been final-transmitted to Danish Power Vault.")
@@ -346,7 +352,6 @@ if portal_mode == "Supplier Gateway Form":
 
             with t3:
                 st.markdown("#### Dynamic Plant Machinery Capability Ledger")
-                if 'mach_count' not in st.session_state: st.session_state.mach_count = len(db_draft_mach) if db_draft_mach else 1
                 if st.button("➕ Add Plant Machinery Row Block"): st.session_state.mach_count += 1
                 
                 machinery_rows = []
@@ -365,7 +370,6 @@ if portal_mode == "Supplier Gateway Form":
 
             with t4:
                 st.markdown("#### Dynamic Metrological Traceability & Lab Register")
-                if 'inst_count' not in st.session_state: st.session_state.inst_count = len(db_draft_inst) if db_draft_inst else 1
                 if st.button("➕ Add Metrological Instrument Row"): st.session_state.inst_count += 1
                 
                 instrument_rows = []
@@ -374,7 +378,6 @@ if portal_mode == "Supplier Gateway Form":
                     if db_draft_inst and r < len(db_draft_inst): d_cat, d_name, d_mm, d_test, d_rng, d_acc, d_cal, d_nabl, d_mst, d_cert, d_rem = db_draft_inst[r]
                     
                     c1, c2, c3, c4 = st.columns(4)
-                    # 🔥 FIXED: Added index fallback to completely prevent index out of range crash errors during empty states
                     with c1: ins_cat = st.selectbox("Asset Category", ["Measuring Instrument", "Testing Facility"], key=f"i_ct_{r}", index=["Measuring Instrument", "Testing Facility"].index(d_cat) if d_cat in ["Measuring Instrument", "Testing Facility"] else 0); ins_name = st.text_input("Instrument Name", key=f"i_nm_{r}", value=d_name)
                     with c2: ins_mm = st.text_input("Make/Model No.", key=f"i_mm_{r}", value=d_mm); ins_test = st.text_input("Test Performed", key=f"i_ts_{r}", value=d_test)
                     with c3: ins_rng = st.text_input("Measurement Range", key=f"i_rg_{r}", value=d_rng); ins_acc = st.text_input("Accuracy/Least Count", key=f"i_ac_{r}", value=d_acc)
@@ -400,73 +403,77 @@ if portal_mode == "Supplier Gateway Form":
                         photo_remarks = st.text_input("Technical Capture Captions", key=f"p_r_{idx}", value=def_p_rem)
                     photo_responses.append({"cat_desc": p_desc, "file": img_file, "custom_name": photo_custom_name, "remarks": photo_remarks})
 
-            # --- SUBMISSION CONTROLS (🔥 RENDERED PERMANENTLY VISIBLE IN CENTRAL ROOT SCOPE) ---
+            # --- SUBMISSION CONTROLS (VISIBLE AT ROOT SCOPE FOR STABILITY) ---
             st.markdown("<br><hr style='border: 1px solid #E31E24;'><h3 style='color:#E31E24;'>📥 Step C: Form Draft Vault & Submission Transmission</h3>", unsafe_allow_html=True)
             scol1, scol2 = st.columns(2)
 
-            # 🔥 FIXED: Bulletproof conditional row tracking logic preventing ON CONFLICT execution crashes
             def commit_to_postgresql(status_string):
-                with conn.cursor() as c:
-                    columns_string = "supplier_email, submission_status, timestamp, supplier_name, product_name, audit_date"
-                    value_array = [vendor_email, status_string, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), s_name, p_name, str(a_date)]
-                    conflict_update = "submission_status=EXCLUDED.submission_status, timestamp=EXCLUDED.timestamp, supplier_name=EXCLUDED.supplier_name, product_name=EXCLUDED.product_name, audit_date=EXCLUDED.audit_date"
-                    
-                    for key, val in core_inputs.items():
-                        columns_string += f", {key}"
-                        value_array.append(val)
-                        conflict_update += f", {key}=EXCLUDED.{key}"
-                    
-                    placeholders = ", ".join(["%s"] * len(value_array))
-                    c.execute(f"INSERT INTO core_assessment ({columns_string}) VALUES ({placeholders}) ON CONFLICT (supplier_email) DO UPDATE SET {conflict_update}", value_array)
-                    
-                    c.execute("DELETE FROM machinery WHERE supplier_email=%s", (vendor_email,))
-                    for row in machinery_rows:
-                        if row[0]: c.execute("INSERT INTO machinery (supplier_email, description, unique_id, make_model, capacity, specification, installation_year, features, automation, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [vendor_email] + row)
-                    
-                    c.execute("DELETE FROM instruments WHERE supplier_email=%s", (vendor_email,))
-                    for row in instrument_rows:
-                        if row[1]: c.execute("INSERT INTO instruments (supplier_email, category, name, make_model, test_name, range, accuracy, cal_date, nabl_detail, master_equip, certificate_no, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [vendor_email] + row)
-                    
-                    # Safe conditional select block targeting files cleanly preventing bytea losses
-                    for d_title, d_val in doc_responses.items():
-                        c.execute("SELECT id FROM doc_checklist WHERE supplier_email=%s AND description=%s", (vendor_email, d_title))
-                        exists = c.fetchone()
-                        if d_val["file"]:
-                            binary_data = psycopg2.Binary(d_val["file"].read())
-                            f_name = d_val["file"].name
-                            if exists: c.execute("UPDATE doc_checklist SET status=%s, remarks=%s, file_name=%s, file_data=%s WHERE supplier_email=%s AND description=%s", (d_val["status"], d_val["remarks"], f_name, binary_data, vendor_email, d_title))
-                            else: c.execute("INSERT INTO doc_checklist (supplier_email, category, description, status, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (vendor_email, d_val["cat"], d_title, d_val["status"], d_val["remarks"], f_name, binary_data))
-                        else:
-                            if exists: c.execute("UPDATE doc_checklist SET status=%s, remarks=%s WHERE supplier_email=%s AND description=%s", (d_val["status"], d_val["remarks"], vendor_email, d_title))
-                            else: c.execute("INSERT INTO doc_checklist (supplier_email, category, description, status, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, NULL, NULL)", (vendor_email, d_val["cat"], d_title, d_val["status"], d_val["remarks"]))
+                try:
+                    with conn.cursor() as c:
+                        columns_string = "supplier_email, submission_status, timestamp, supplier_name, product_name, audit_date"
+                        value_array = [vendor_email, status_string, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), s_name, p_name, str(a_date)]
+                        conflict_update = "submission_status=EXCLUDED.submission_status, timestamp=EXCLUDED.timestamp, supplier_name=EXCLUDED.supplier_name, product_name=EXCLUDED.product_name, audit_date=EXCLUDED.audit_date"
+                        
+                        for key, val in core_inputs.items():
+                            columns_string += f", {key}"
+                            value_array.append(val)
+                            conflict_update += f", {key}=EXCLUDED.{key}"
+                        
+                        placeholders = ", ".join(["%s"] * len(value_array))
+                        c.execute(f"INSERT INTO core_assessment ({columns_string}) VALUES ({placeholders}) ON CONFLICT (supplier_email) DO UPDATE SET {conflict_update}", value_array)
+                        
+                        c.execute("DELETE FROM machinery WHERE supplier_email=%s", (vendor_email,))
+                        for row in machinery_rows:
+                            if row[0]: c.execute("INSERT INTO machinery (supplier_email, description, unique_id, make_model, capacity, specification, installation_year, features, automation, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [vendor_email] + row)
+                        
+                        c.execute("DELETE FROM instruments WHERE supplier_email=%s", (vendor_email,))
+                        for row in instrument_rows:
+                            if row[1]: c.execute("INSERT INTO instruments (supplier_email, category, name, make_model, test_name, range, accuracy, cal_date, nabl_detail, master_equip, certificate_no, remarks) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", [vendor_email] + row)
+                        
+                        for d_title, d_val in doc_responses.items():
+                            c.execute("SELECT id FROM doc_checklist WHERE supplier_email=%s AND description=%s", (vendor_email, d_title))
+                            exists = c.fetchone()
+                            if d_val["file"]:
+                                binary_data = psycopg2.Binary(d_val["file"].read())
+                                f_name = d_val["file"].name
+                                if exists: c.execute("UPDATE doc_checklist SET status=%s, remarks=%s, file_name=%s, file_data=%s WHERE supplier_email=%s AND description=%s", (d_val["status"], d_val["remarks"], f_name, binary_data, vendor_email, d_title))
+                                else: c.execute("INSERT INTO doc_checklist (supplier_email, category, description, status, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (vendor_email, d_val["cat"], d_title, d_val["status"], d_val["remarks"], f_name, binary_data))
+                            else:
+                                if exists: c.execute("UPDATE doc_checklist SET status=%s, remarks=%s WHERE supplier_email=%s AND description=%s", (d_val["status"], d_val["remarks"], vendor_email, d_title))
+                                else: c.execute("INSERT INTO doc_checklist (supplier_email, category, description, status, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, NULL, NULL)", (vendor_email, d_val["cat"], d_title, d_val["status"], d_val["remarks"]))
 
-                    for photo in photo_responses:
-                        c.execute("SELECT id FROM plant_photos WHERE supplier_email=%s AND category_desc=%s", (vendor_email, photo["cat_desc"]))
-                        exists = c.fetchone()
-                        if photo["file"]:
-                            photo_binary = psycopg2.Binary(photo["file"].read())
-                            f_name = photo["file"].name
-                            if exists: c.execute("UPDATE plant_photos SET custom_photo_name=%s, remarks=%s, file_name=%s, file_data=%s WHERE supplier_email=%s AND category_desc=%s", (photo["custom_name"], photo["remarks"], f_name, photo_binary, vendor_email, photo["cat_desc"]))
-                            else: c.execute("INSERT INTO plant_photos (supplier_email, category_desc, custom_photo_name, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, %s)", (vendor_email, photo["cat_desc"], photo["custom_name"], photo["remarks"], f_name, photo_binary))
-                        else:
-                            if exists: c.execute("UPDATE plant_photos SET custom_photo_name=%s, remarks=%s WHERE supplier_email=%s AND category_desc=%s", (photo["custom_name"], photo["remarks"], vendor_email, photo["cat_desc"]))
-                            else: c.execute("INSERT INTO plant_photos (supplier_email, category_desc, custom_photo_name, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, NULL, NULL)", (vendor_email, photo["cat_desc"], photo["custom_name"], photo["remarks"]))
-                conn.commit()
+                        for photo in photo_responses:
+                            c.execute("SELECT id FROM plant_photos WHERE supplier_email=%s AND category_desc=%s", (vendor_email, photo["cat_desc"]))
+                            exists = c.fetchone()
+                            if photo["file"]:
+                                photo_binary = psycopg2.Binary(photo["file"].read())
+                                f_name = photo["file"].name
+                                if exists: c.execute("UPDATE plant_photos SET custom_photo_name=%s, remarks=%s, file_name=%s, file_data=%s WHERE supplier_email=%s AND category_desc=%s", (photo["custom_name"], photo["remarks"], f_name, photo_binary, vendor_email, photo["cat_desc"]))
+                                else: c.execute("INSERT INTO plant_photos (supplier_email, category_desc, custom_photo_name, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, %s, %s)", (vendor_email, photo["cat_desc"], photo["custom_name"], photo["remarks"], f_name, photo_binary))
+                            else:
+                                if exists: c.execute("UPDATE plant_photos SET custom_photo_name=%s, remarks=%s WHERE supplier_email=%s AND category_desc=%s", (photo["custom_name"], photo["remarks"], vendor_email, photo["cat_desc"]))
+                                else: c.execute("INSERT INTO plant_photos (supplier_email, category_desc, custom_photo_name, remarks, file_name, file_data) VALUES (%s, %s, %s, %s, NULL, NULL)", (vendor_email, photo["cat_desc"], photo["custom_name"], photo["remarks"]))
+                    conn.commit()
+                    return True
+                except Exception as db_err:
+                    conn.rollback()
+                    st.error(f"⚠️ Production Gatekeeper Halt: Transaction rolled back safely to prevent corruption. Reason: {str(db_err)}")
+                    return False
 
             with scol1:
                 if st.button("💾 SAVE AS DRAFT", use_container_width=True):
                     if not s_name: st.error("Validation Error: Supplier Corporate Name is required to commit a draft.")
                     else:
-                        commit_to_postgresql('DRAFT')
-                        st.success("💾 State Transmitted: Partial draft snapshot locked inside cloud database.")
+                        if commit_to_postgresql('DRAFT'):
+                            st.success("💾 State Transmitted: Partial draft snapshot locked inside cloud database.")
 
             with scol2:
                 if st.button("🚀 FINAL COMPLETED SUBMIT TO DANISH POWER", use_container_width=True):
                     if not s_name or not p_name: st.error("Validation Error: Corporate Registry data items are strictly required.")
                     else:
-                        commit_to_postgresql('SUBMITTED')
-                        st.success("🚀 Success! Compliance response locked down.")
-                        st.balloons()
+                        if commit_to_postgresql('SUBMITTED'):
+                            st.success("🚀 Success! Compliance response locked down.")
+                            st.balloons()
 
 elif portal_mode == "DPL Quality Admin View":
     st.markdown("## 🛡️ Quality Assurance Verification Vault")

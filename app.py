@@ -397,11 +397,11 @@ def generate_master_pdf(supplier_email):
 
     # Section 4: Instruments Table
     story.append(Paragraph("4. Measuring Instruments & Metrological Testing Log", sec_s))
-    inst_headers = ["Category", "Instrument Name", "Make/Model", "Test", "Range", "Accuracy", "Cal Date", "NABL", "Cert No", "Remarks"]
+    inst_headers = ["Category", "Instrument Name", "Make/Model", "Test", "Range", "Accuracy", "Cal Date", "NABL", "Master Equip", "Cert No", "Remarks"]
     inst_table_data = [[Paragraph(h, th_s) for h in inst_headers]]
     for row in inst_data:
-        inst_table_data.append([Paragraph(str(row[k]) if row[k] else "-", cell_s) for k in ["category", "name", "make_model", "test_name", "range", "accuracy", "cal_date", "nabl_detail", "certificate_no", "remarks"]])
-    inst_table = Table(inst_table_data, colWidths=[55, 70, 50, 60, 40, 45, 50, 40, 55, 97], repeatRows=1)
+        inst_table_data.append([Paragraph(str(row[k]) if row[k] else "-", cell_s) for k in ["category", "name", "make_model", "test_name", "range", "accuracy", "cal_date", "nabl_detail", "master_equip", "certificate_no", "remarks"]])
+    inst_table = Table(inst_table_data, colWidths=[48, 60, 45, 50, 35, 40, 45, 35, 55, 48, 71], repeatRows=1)
     inst_table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), brand_dark), ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cfd8dc')), ('VALIGN', (0, 0), (-1, -1), 'TOP'), ('PADDING', (0, 0), (-1, -1), 4)]))
     story.append(inst_table)
 
@@ -609,6 +609,9 @@ if portal_mode == "Supplier Gateway Form":
                         st.rerun()
                 with bcol2:
                     if st.session_state.mach_count > 1 and st.button("🗑️ Remove Last Machinery Row"):
+                        last_idx = st.session_state.mach_count - 1
+                        for prefix in ["m_ds_", "m_ui_", "m_mk_", "m_cp_", "m_sp_", "m_yr_", "m_ft_", "m_au_", "m_rm_"]:
+                            st.session_state.pop(f"{prefix}{last_idx}", None)
                         st.session_state.mach_count -= 1
                         st.rerun()
 
@@ -648,6 +651,9 @@ if portal_mode == "Supplier Gateway Form":
                         st.rerun()
                 with bcol2:
                     if st.session_state.inst_count > 1 and st.button("🗑️ Remove Last Instrument Row"):
+                        last_idx = st.session_state.inst_count - 1
+                        for prefix in ["i_ct_", "i_nm_", "i_mm_", "i_ts_", "i_rg_", "i_ac_", "i_cd_", "i_nb_", "i_ms_", "i_cr_", "i_rm_"]:
+                            st.session_state.pop(f"{prefix}{last_idx}", None)
                         st.session_state.inst_count -= 1
                         st.rerun()
 
@@ -798,7 +804,14 @@ elif portal_mode == "DPL Quality Admin View":
     if st.session_state.admin_attempts >= MAX_ADMIN_ATTEMPTS and not st.session_state.admin_verified:
         st.error("🔒 Too many incorrect attempts. Please refresh the page and try again later.")
     elif st.session_state.admin_verified:
-        st.success("🔑 Authorization Confirmed.")
+        logout_col1, logout_col2 = st.columns([5, 1])
+        with logout_col1:
+            st.success("🔑 Authorization Confirmed.")
+        with logout_col2:
+            if st.button("🔒 Logout"):
+                st.session_state.admin_verified = False
+                st.session_state.admin_attempts = 0
+                st.rerun()
         conn = get_connection()
         try:
             with dict_cursor(conn) as c:
@@ -823,10 +836,15 @@ elif portal_mode == "DPL Quality Admin View":
                     else:
                         st.error("Compilation Fault: Empty or mismatched structure matrices encountered.")
     else:
-        admin_token = st.text_input("Enter Enterprise Operational Security Access Token", type="password")
-        if admin_token:
+        # Uses a form + submit button so the password is only checked once,
+        # on submit - NOT on every keystroke (which previously could exhaust
+        # the attempt limit while the correct password was still being typed).
+        with st.form("admin_login_form", clear_on_submit=False):
+            admin_token = st.text_input("Enter Enterprise Operational Security Access Token", type="password")
+            submitted = st.form_submit_button("🔓 Verify Access Token")
+        if submitted:
             correct_password = st.secrets.get("admin", {}).get("password", None)
-            if correct_password and pysecrets.compare_digest(admin_token, correct_password):
+            if admin_token and correct_password and pysecrets.compare_digest(admin_token, correct_password):
                 st.session_state.admin_verified = True
                 st.rerun()
             else:

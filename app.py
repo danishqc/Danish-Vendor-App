@@ -9,9 +9,11 @@ import psycopg2
 import psycopg2.extras
 from datetime import datetime, timedelta
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, Image as RLImage
 from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.utils import ImageReader
 from reportlab.lib import colors
+from pypdf import PdfReader, PdfWriter
 import io
 
 # --- PAGE CONFIG ---
@@ -337,6 +339,20 @@ def check_file_size(uploaded_file):
 # ============================================================
 #  PDF GENERATION  (name-based access - immune to DB column order)
 # ============================================================
+def _embed_image(file_bytes, max_w=380, max_h=480):
+    """Returns a reportlab Image scaled to fit within max_w x max_h, or None
+    if the bytes aren't a readable image."""
+    try:
+        buf = io.BytesIO(bytes(file_bytes))
+        ir = ImageReader(buf)
+        iw, ih = ir.getSize()
+        scale = min(max_w / iw, max_h / ih, 1.0)
+        buf.seek(0)
+        return RLImage(buf, width=iw * scale, height=ih * scale)
+    except Exception:
+        return None
+
+
 def generate_master_pdf(supplier_email):
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=25, leftMargin=25, topMargin=30, bottomMargin=30)
@@ -364,9 +380,9 @@ def generate_master_pdf(supplier_email):
         mach_data = c.fetchall()
         c.execute("SELECT category, name, make_model, test_name, range, accuracy, cal_date, nabl_detail, master_equip, certificate_no, remarks FROM instruments WHERE supplier_email=%s", (supplier_email,))
         inst_data = c.fetchall()
-        c.execute("SELECT category, description, status, remarks, file_name FROM doc_checklist WHERE supplier_email=%s ORDER BY id ASC", (supplier_email,))
+        c.execute("SELECT category, description, status, remarks, file_name, file_data FROM doc_checklist WHERE supplier_email=%s ORDER BY id ASC", (supplier_email,))
         docs_data = c.fetchall()
-        c.execute("SELECT category_desc, custom_photo_name, remarks, file_name FROM plant_photos WHERE supplier_email=%s ORDER BY id ASC", (supplier_email,))
+        c.execute("SELECT category_desc, custom_photo_name, remarks, file_name, file_data FROM plant_photos WHERE supplier_email=%s ORDER BY id ASC", (supplier_email,))
         photo_data = c.fetchall()
 
     if not core_data:
@@ -408,6 +424,23 @@ def generate_master_pdf(supplier_email):
     doc_table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), brand_red), ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cfd8dc')), ('VALIGN', (0, 0), (-1, -1), 'TOP'), ('PADDING', (0, 0), (-1, -1), 5)]))
     story.append(doc_table)
 
+    # Embed uploaded document images inline; collect PDFs to append as an annexure
+    pdf_attachments = []  # list of (label, raw_bytes)
+    image_docs = [r for r in docs_data if r["file_data"] and r["file_name"] and r["file_name"].lower().endswith((".png", ".jpg", ".jpeg"))]
+    if image_docs:
+        story.append(Spacer(1, 10))
+        story.append(Paragraph("2a. Uploaded Document Images", sec_s))
+        for row in image_docs:
+            img = _embed_image(row["file_data"])
+            if img:
+                story.append(Paragraph(f"<b>{row['description']}</b> ({row['file_name']})", cell_b))
+                story.append(Spacer(1, 4))
+                story.append(img)
+                story.append(Spacer(1, 10))
+    for row in docs_data:
+        if row["file_data"] and row["file_name"] and row["file_name"].lower().endswith(".pdf"):
+            pdf_attachments.append((f"{row['category']} - {row['description']} ({row['file_name']})", bytes(row["file_data"])))
+
     story.append(Spacer(1, 15))
 
     # Section 3: Machinery Table
@@ -444,8 +477,44 @@ def generate_master_pdf(supplier_email):
     photo_table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), brand_dark), ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cfd8dc')), ('VALIGN', (0, 0), (-1, -1), 'TOP'), ('PADDING', (0, 0), (-1, -1), 5)]))
     story.append(photo_table)
 
+    photo_imgs = [p for p in photo_data if p["file_data"]]
+    if photo_imgs:
+        story.append(Spacer(1, 10))
+        story.append(Paragraph("5a. Uploaded Plant Photos", sec_s))
+        for prow in photo_imgs:
+            img = _embed_image(prow["file_data"])
+            if img:
+                label = prow["custom_photo_name"] or prow["category_desc"]
+                story.append(Paragraph(f"<b>{prow['category_desc']}</b> - {label} ({prow['file_name']})", cell_b))
+                story.append(Spacer(1, 4))
+                story.append(img)
+                story.append(Spacer(1, 10))
+
     doc.build(story)
     buffer.seek(0)
+
+    # Merge any uploaded PDF documents in as a final annexure section
+    if pdf_attachments:
+        writer = PdfWriter()
+        for page in PdfReader(buffer).pages:
+            writer.add_page(page)
+        for label, pdf_bytes in pdf_attachments:
+            cover_buf = io.BytesIO()
+            cover_doc = SimpleDocTemplate(cover_buf, pagesize=letter)
+            cover_doc.build([Paragraph("Annexure", title_s), Spacer(1, 10), Paragraph(label, sec_s)])
+            cover_buf.seek(0)
+            for page in PdfReader(cover_buf).pages:
+                writer.add_page(page)
+            try:
+                for page in PdfReader(io.BytesIO(pdf_bytes)).pages:
+                    writer.add_page(page)
+            except Exception:
+                pass  # skip an unreadable/corrupted uploaded PDF rather than failing the whole report
+        merged_buffer = io.BytesIO()
+        writer.write(merged_buffer)
+        merged_buffer.seek(0)
+        buffer = merged_buffer
+
     return buffer, core_data["supplier_name"]
 
 

@@ -983,7 +983,8 @@ elif portal_mode == "DPL Quality Admin View":
         else:
             lookup_options = [f"ID: {r['id']} | Name: {r['supplier_name']} ({r['supplier_email']}) | State: {r['submission_status']}" for r in records]
             target_selection = st.selectbox("Choose a Vendor Data Matrix Record for Analysis", lookup_options)
-            selected_email = [r["supplier_email"] for r in records if f"ID: {r['id']}" in target_selection][0]
+            selected_record = [r for r in records if f"ID: {r['id']}" in target_selection][0]
+            selected_email = selected_record["supplier_email"]
             st.markdown("---")
             if st.button("📄 EXECUTE AND BUILD BRANDED OFFICIAL COMPLIANCE PDF REPORT", use_container_width=True):
                 with st.spinner("Compiling structural entities into PDF layout..."):
@@ -992,6 +993,25 @@ elif portal_mode == "DPL Quality Admin View":
                         st.download_button(label=f"📥 DOWNLOAD OFFICIAL BRANDED AUDIT REPORT FOR {resolved_name.upper()}", data=pdf_stream, file_name=f"DPL_Audit_Report_{resolved_name.replace(' ', '_')}.pdf", mime="application/pdf", use_container_width=True)
                     else:
                         st.error("Compilation Fault: Empty or mismatched structure matrices encountered.")
+
+            st.markdown("---")
+            if selected_record["submission_status"] == "SUBMITTED":
+                st.markdown("#### 🔓 Request Revision")
+                st.caption("Unlocks this vendor's form so they can log back in with their email, fix missing documents/photos, and re-submit. Their previously entered data is not deleted.")
+                with st.expander("Unlock this vendor for revision"):
+                    revision_note = st.text_input("Reason / note for the vendor (optional, shown in logs only)", key="revision_note")
+                    if st.button(f"🔓 Unlock {selected_record['supplier_name']} for Revision", use_container_width=True):
+                        try:
+                            with conn.cursor() as rc:
+                                rc.execute("UPDATE core_assessment SET submission_status='DRAFT' WHERE supplier_email=%s", (selected_email,))
+                            conn.commit()
+                            st.success(f"✅ {selected_record['supplier_name']} has been unlocked and can now log back in to revise and re-submit their assessment.")
+                            st.rerun()
+                        except Exception as e:
+                            conn.rollback()
+                            st.error(f"❌ Could not unlock this record. ({e})")
+            else:
+                st.caption(f"Current status: **{selected_record['submission_status']}** — revision unlock only applies to SUBMITTED records.")
     else:
         # Uses a form + submit button so the password is only checked once,
         # on submit - NOT on every keystroke (which previously could exhaust

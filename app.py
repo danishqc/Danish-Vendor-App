@@ -410,7 +410,9 @@ def generate_master_pdf(supplier_email):
     # Section 1: Core Matrix Table
     story.append(Paragraph("1. Core Compliance Evaluation Matrix (1.1 - 8.5)", sec_s))
     q_table_data = [[Paragraph("S.No", th_s), Paragraph("Checkpoints Description", th_s), Paragraph("Status", th_s), Paragraph("Auditor Remarks", th_s)]]
+    section_header_rows = []  # track which rows are section headers, so they can span the full row width
     for sec_name, questions in audit_points.items():
+        section_header_rows.append(len(q_table_data))
         q_table_data.append([Paragraph(f"<b>{sec_name}</b>", cell_b), "", "", ""])
         for q_num, q_text in questions.items():
             k_code = q_num.replace('.', '_')
@@ -418,7 +420,11 @@ def generate_master_pdf(supplier_email):
             comment_val = core_data.get(f"q_{k_code}_comment") or "-"
             q_table_data.append([Paragraph(q_num, cell_s), Paragraph(q_text, cell_s), Paragraph(status_val, cell_s), Paragraph(comment_val, cell_s)])
     q_table = Table(q_table_data, colWidths=[35, 275, 50, 202], repeatRows=1)
-    q_table.setStyle(TableStyle([('BACKGROUND', (0, 0), (-1, 0), brand_red), ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cfd8dc')), ('VALIGN', (0, 0), (-1, -1), 'TOP'), ('PADDING', (0, 0), (-1, -1), 5)]))
+    q_table_style = [('BACKGROUND', (0, 0), (-1, 0), brand_red), ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#cfd8dc')), ('VALIGN', (0, 0), (-1, -1), 'TOP'), ('PADDING', (0, 0), (-1, -1), 5)]
+    for r in section_header_rows:
+        q_table_style.append(('SPAN', (0, r), (-1, r)))
+        q_table_style.append(('BACKGROUND', (0, r), (-1, r), colors.HexColor('#FFEBEE')))
+    q_table.setStyle(TableStyle(q_table_style))
     story.append(q_table)
 
     story.append(PageBreak())

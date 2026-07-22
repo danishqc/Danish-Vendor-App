@@ -882,9 +882,19 @@ if portal_mode == "Supplier Gateway Form":
                     if not s_name or not p_name:
                         st.error("Validation Error: Corporate Registry data items are strictly required.")
                     else:
-                        if commit_to_postgresql('SUBMITTED'):
+                        # Re-check the live status right before committing, in case this
+                        # vendor already finished submitting in another tab/session
+                        # since this page was loaded - prevents an accidental duplicate submit.
+                        with conn.cursor() as _c:
+                            _c.execute("SELECT submission_status FROM core_assessment WHERE supplier_email=%s", (vendor_email,))
+                            _row = _c.fetchone()
+                        if _row and _row[0] == 'SUBMITTED':
+                            st.warning("⚠️ This assessment was already submitted (possibly in another tab). Refreshing the locked view.")
+                            st.rerun()
+                        elif commit_to_postgresql('SUBMITTED'):
                             st.success("🚀 Success! Compliance response locked down.")
                             st.balloons()
+                            st.rerun()
 
 # ============================================================
 #  ADMIN VIEW

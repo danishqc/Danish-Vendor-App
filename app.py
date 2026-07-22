@@ -132,12 +132,31 @@ def init_connection():
 
 
 def get_connection():
-    """Wraps init_connection with a friendly error instead of a hard crash."""
+    """Wraps init_connection with a friendly error instead of a hard crash.
+    Also detects a stale/dead cached connection (idle timeout, DB restart,
+    provider auto-pause) and transparently reconnects - this does not touch
+    any stored data, it only manages the connection object."""
     try:
-        return init_connection()
+        conn = init_connection()
     except Exception as e:
         st.error(f"❌ Database connection failed. Please contact the portal administrator. ({e})")
         st.stop()
+
+    try:
+        with conn.cursor() as c:
+            c.execute("SELECT 1")
+    except (psycopg2.OperationalError, psycopg2.InterfaceError):
+        try:
+            conn.close()
+        except Exception:
+            pass
+        init_connection.clear()  # evict the dead cached connection
+        try:
+            conn = init_connection()
+        except Exception as e:
+            st.error(f"❌ Database connection failed. Please contact the portal administrator. ({e})")
+            st.stop()
+    return conn
 
 
 def init_db():
@@ -182,7 +201,14 @@ def dict_cursor(conn):
     return conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 
-init_db()
+try:
+    init_db()
+except SystemExit:
+    raise
+except Exception as e:
+    st.error("⚠️ Database is temporarily unreachable. Please refresh the page in a few seconds.")
+    st.caption(f"Technical detail: {e}")
+    st.stop()
 
 # ============================================================
 #  AUDIT MATRIX / DOCUMENT LISTS  (text synced with Assessment_Master.xlsx)

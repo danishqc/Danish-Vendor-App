@@ -145,6 +145,7 @@ def get_connection():
     try:
         with conn.cursor() as c:
             c.execute("SELECT 1")
+        conn.rollback()  # close the transaction the ping opened (read-only, nothing to keep)
     except (psycopg2.OperationalError, psycopg2.InterfaceError):
         try:
             conn.close()

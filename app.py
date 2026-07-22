@@ -325,6 +325,14 @@ plant_photos = [
 ]
 
 
+def machinery_rows_filled(rows):
+    return any(row[0] for row in rows)
+
+
+def instrument_rows_filled(rows):
+    return any(row[1] for row in rows)
+
+
 def check_file_size(uploaded_file):
     """Returns True if the file is within the allowed size, else shows an error."""
     if uploaded_file is None:
@@ -901,10 +909,29 @@ if portal_mode == "Supplier Gateway Form":
                         if commit_to_postgresql('DRAFT'):
                             st.success("💾 State Transmitted: Partial draft snapshot locked inside cloud database.")
 
+            missing_mandatory_docs = [d for d in mandatory_docs if not doc_responses[d]["file"] and not (d in existing_docs and existing_docs[d]["file_name"])]
+            missing_photos = [p_desc for p_desc in plant_photos if not any(pr["cat_desc"] == p_desc and pr["file"] for pr in photo_responses) and not (p_desc in existing_photos and existing_photos[p_desc]["file_name"])]
+            confirm_anyway = True
+            if missing_mandatory_docs or missing_photos or not machinery_rows_filled(machinery_rows) or not instrument_rows_filled(instrument_rows):
+                warn_lines = []
+                if missing_mandatory_docs:
+                    warn_lines.append(f"{len(missing_mandatory_docs)} mandatory document(s) have no file uploaded")
+                if missing_photos:
+                    warn_lines.append(f"{len(missing_photos)} plant photo(s) have no file uploaded")
+                if not machinery_rows_filled(machinery_rows):
+                    warn_lines.append("no machinery entries filled in")
+                if not instrument_rows_filled(instrument_rows):
+                    warn_lines.append("no instrument entries filled in")
+                st.warning("⚠️ Before you submit, note: " + "; ".join(warn_lines) + ". "
+                           "If you just selected files, make sure this page hasn't reloaded since - re-select them if needed.")
+                confirm_anyway = st.checkbox("I understand some items above are missing and want to submit anyway")
+
             with scol2:
                 if st.button("🚀 FINAL COMPLETED SUBMIT TO DANISH POWER", use_container_width=True):
                     if not s_name or not p_name:
                         st.error("Validation Error: Corporate Registry data items are strictly required.")
+                    elif not confirm_anyway:
+                        st.error("Please tick the confirmation checkbox above, or upload the missing items, before submitting.")
                     else:
                         # Re-check the live status right before committing, in case this
                         # vendor already finished submitting in another tab/session

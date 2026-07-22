@@ -614,6 +614,30 @@ if portal_mode == "Supplier Gateway Form":
 
         if db_draft_core and db_draft_core["submission_status"] == 'SUBMITTED':
             st.success("✅ Assessment Locked: Your corporate response data matrix has been final-transmitted to Danish Power Vault.")
+
+            st.markdown("#### 📋 Submission Summary (read-only)")
+            files_uploaded = sum(1 for d in existing_docs.values() if d["file_name"])
+            photos_uploaded = sum(1 for p in existing_photos.values() if p["file_name"])
+            summary_col1, summary_col2, summary_col3, summary_col4 = st.columns(4)
+            with summary_col1:
+                st.metric("Documents with files", f"{files_uploaded} / {len(existing_docs)}")
+            with summary_col2:
+                st.metric("Plant photos uploaded", f"{photos_uploaded} / {len(existing_photos)}")
+            with summary_col3:
+                st.metric("Machinery entries", len(db_draft_mach))
+            with summary_col4:
+                st.metric("Instrument entries", len(db_draft_inst))
+
+            if files_uploaded < len(existing_docs) or photos_uploaded < len(existing_photos) or not db_draft_mach or not db_draft_inst:
+                st.warning("⚠️ Some documents, photos, machinery, or instrument entries appear to be missing from your submission. "
+                           "If this doesn't match what you intended to submit, please contact the Danish Power Limited quality team.")
+
+            with st.expander("View submitted document checklist"):
+                for desc, d in existing_docs.items():
+                    st.write(f"{'✅' if d['file_name'] else '⚠️ No file'} **{desc}** — {d['status']}" + (f" (`{d['file_name']}`)" if d['file_name'] else ""))
+            with st.expander("View submitted plant photos"):
+                for cat, p in existing_photos.items():
+                    st.write(f"{'✅' if p['file_name'] else '⚠️ No file'} **{cat}**" + (f" (`{p['file_name']}`)" if p['file_name'] else ""))
         else:
             if db_draft_core and db_draft_core["submission_status"] == 'DRAFT':
                 st.warning("🔄 Live Active Draft Found. All technical attributes are auto-restored below.")
